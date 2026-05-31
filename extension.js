@@ -227,7 +227,7 @@ function generateCSS(s) {
   return c;
 }
 
-function getWebviewHTML(settings) {
+function getWebviewHTML(settings, extra) {
   const s = JSON.stringify(settings);
   const masterChk = settings.masterEnabled !== false ? 'checked' : '';
   return `<!DOCTYPE html>
@@ -622,6 +622,56 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
   color: var(--tx);
 }
 
+/* ═══════════════════════════════════
+   QUICK COMMANDS
+   ═══════════════════════════════════ */
+.qc-list { display: flex; flex-direction: column; gap: 5px; }
+.qc-item { display: flex; align-items: center; gap: 6px; }
+.qc-lbl  { flex: 1; font-family: var(--serif); font-size: 11px; font-style: italic; color: var(--tx); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.qc-run  { padding: 3px 8px; background: rgba(0,196,168,0.08); border: 1px solid var(--ac2); color: var(--ac); font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.14s; }
+.qc-run:hover { background: rgba(0,196,168,0.18); box-shadow: 0 0 6px rgba(0,196,168,0.3); }
+.qc-del  { padding: 3px 6px; background: none; border: 1px solid var(--bd2); color: var(--mu); font-size: 9px; cursor: pointer; transition: all 0.14s; }
+.qc-del:hover { border-color: #7a2020; color: #c05050; }
+.qc-add  { display: flex; gap: 5px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--bd); }
+.qc-add input { flex: 1; min-width: 0; }
+.qc-add-btn { padding: 4px 10px; background: rgba(0,196,168,0.08); border: 1px solid var(--ac2); color: var(--ac); font-family: var(--mono); font-size: 11px; cursor: pointer; flex-shrink: 0; transition: all 0.14s; }
+.qc-add-btn:hover { background: rgba(0,196,168,0.18); }
+.qc-empty { font-family: var(--serif); font-size: 10px; font-style: italic; color: var(--mu); text-align: center; padding: 6px 0; }
+
+/* ═══════════════════════════════════
+   FONT CONTROLS
+   ═══════════════════════════════════ */
+.font-reset { display: block; width: 100%; margin-top: 6px; padding: 6px; background: none; border: 1px solid var(--bd2); color: var(--mu); font-family: var(--serif); font-size: 10px; font-style: italic; letter-spacing: 0.1em; cursor: pointer; transition: all 0.14s; }
+.font-reset:hover { border-color: var(--ac2); color: var(--tx); }
+
+/* ═══════════════════════════════════
+   SCRATCH PAD
+   ═══════════════════════════════════ */
+.scratch-wrap { display: flex; flex-direction: column; gap: 5px; }
+.scratch-area {
+  width: 100%; min-height: 110px; resize: vertical;
+  background: var(--s1); border: 1px solid var(--bd2); border-left: 2px solid var(--ac2);
+  color: var(--tx); padding: 7px 8px;
+  font-family: var(--mono); font-size: 11px; line-height: 1.55;
+  outline: none; border-radius: 0; box-sizing: border-box;
+}
+.scratch-area:focus { border-color: var(--ac); border-left-color: var(--ac); }
+.scratch-area::placeholder { color: var(--mu); }
+.scratch-meta { font-family: var(--mono); font-size: 8px; color: var(--mu); text-align: right; letter-spacing: 0.08em; }
+
+/* ═══════════════════════════════════
+   COLOR TOOLS
+   ═══════════════════════════════════ */
+.ct-preview { width: 100%; height: 36px; border: 1px solid var(--bd2); margin-bottom: 8px; cursor: pointer; }
+.ct-picker-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.ct-picker-lbl { font-family: var(--serif); font-size: 11px; font-style: italic; color: var(--tx); }
+.ct-row { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
+.ct-fmt  { flex: 0 0 30px; font-family: var(--mono); font-size: 8.5px; color: var(--mu); letter-spacing: 0.1em; text-transform: uppercase; }
+.ct-val  { flex: 1; font-family: var(--mono); font-size: 10px; color: var(--tx2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ct-copy { padding: 2px 8px; background: none; border: 1px solid var(--bd2); color: var(--mu); font-family: var(--mono); font-size: 8px; letter-spacing: 0.08em; cursor: pointer; transition: all 0.14s; }
+.ct-copy:hover { border-color: var(--ac2); color: var(--ac); }
+.ct-copy.flash { border-color: var(--ac); color: var(--ac); box-shadow: 0 0 6px rgba(0,196,168,0.4); }
+
 /* Master section — top-level collapsible module */
 .msec { border-bottom: 1px solid var(--bd2); }
 
@@ -900,6 +950,94 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
   </div><!-- /msec-body -->
 </div><!-- /msec Background Console -->
 
+<!-- QUICK COMMANDS -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-qc">
+      <i class="chev o" id="ch-qc">&#9658;</i>
+      <span class="msec-title">Quick Commands</span>
+    </div>
+  </div>
+  <div class="msec-body" id="sec-qc">
+    <div class="qc-list" id="qcList"></div>
+    <div class="qc-add">
+      <input type="text" id="qcLabel" placeholder="Label" style="flex:0 0 80px;">
+      <input type="text" id="qcCmd"   placeholder="Command…">
+      <button class="qc-add-btn" id="qcAddBtn">+</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOCUS MODE -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-focus">
+      <i class="chev o" id="ch-focus">&#9658;</i>
+      <span class="msec-title">Focus Mode</span>
+    </div>
+  </div>
+  <div class="msec-body" id="sec-focus">
+    <div class="row"><span class="lbl">Activity Bar</span><div class="inp" style="display:flex;align-items:center;gap:8px;"><label class="tog"><input type="checkbox" id="focusActivityBar"><span class="trk"></span></label><span class="tlbl" onclick="document.getElementById('focusActivityBar').click()">Visible</span></div></div>
+    <div class="row"><span class="lbl">Status Bar</span><div class="inp" style="display:flex;align-items:center;gap:8px;"><label class="tog"><input type="checkbox" id="focusStatusBar"><span class="trk"></span></label><span class="tlbl" onclick="document.getElementById('focusStatusBar').click()">Visible</span></div></div>
+    <div class="row"><span class="lbl">Minimap</span><div class="inp" style="display:flex;align-items:center;gap:8px;"><label class="tog"><input type="checkbox" id="focusMinimap"><span class="trk"></span></label><span class="tlbl" onclick="document.getElementById('focusMinimap').click()">Visible</span></div></div>
+    <div class="row"><span class="lbl">Breadcrumbs</span><div class="inp" style="display:flex;align-items:center;gap:8px;"><label class="tog"><input type="checkbox" id="focusBreadcrumbs"><span class="trk"></span></label><span class="tlbl" onclick="document.getElementById('focusBreadcrumbs').click()">Visible</span></div></div>
+    <div class="row"><span class="lbl">Panel</span><div class="inp" style="display:flex;align-items:center;gap:8px;"><label class="tog"><input type="checkbox" id="focusPanel"><span class="trk"></span></label><span class="tlbl" onclick="document.getElementById('focusPanel').click()">Visible</span></div></div>
+  </div>
+</div>
+
+<!-- FONT CONTROLS -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-font">
+      <i class="chev o" id="ch-font">&#9658;</i>
+      <span class="msec-title">Font Controls</span>
+    </div>
+  </div>
+  <div class="msec-body" id="sec-font">
+    <div class="row"><span class="lbl">Family</span><div class="inp"><input type="text" id="fontFamily" placeholder="Default"></div></div>
+    <div class="row"><span class="lbl">Size</span><div class="inp sl-row"><input type="range" id="fontSize" min="10" max="28" step="1"><span class="sl-val" id="fontSizeVal">14px</span></div></div>
+    <div class="row"><span class="lbl">Line height</span><div class="inp sl-row"><input type="range" id="lineHeight" min="0" max="60" step="1"><span class="sl-val" id="lineHeightVal">0</span></div></div>
+    <div class="row"><span class="lbl">Letter spc.</span><div class="inp sl-row"><input type="range" id="letterSpacing" min="-2" max="10" step="0.5"><span class="sl-val" id="letterSpacingVal">0px</span></div></div>
+    <button class="font-reset" id="fontResetBtn">Reset to VS Code defaults</button>
+  </div>
+</div>
+
+<!-- SCRATCH PAD -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-scratch">
+      <i class="chev o" id="ch-scratch">&#9658;</i>
+      <span class="msec-title">Scratch Pad</span>
+    </div>
+  </div>
+  <div class="msec-body" id="sec-scratch">
+    <div class="scratch-wrap">
+      <textarea class="scratch-area" id="scratchText" placeholder="Notes, snippets, temp values…" spellcheck="false"></textarea>
+      <div class="scratch-meta" id="scratchMeta">auto-saved · per workspace</div>
+    </div>
+  </div>
+</div>
+
+<!-- COLOR TOOLS -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-ct">
+      <i class="chev o" id="ch-ct">&#9658;</i>
+      <span class="msec-title">Color Tools</span>
+    </div>
+  </div>
+  <div class="msec-body" id="sec-ct">
+    <div class="ct-picker-row">
+      <span class="ct-picker-lbl">Pick</span>
+      <input type="color" id="ctPicker" value="#00d4b1" style="width:36px;height:26px;flex-shrink:0;">
+      <div class="ct-preview" id="ctPreview" style="flex:1;height:26px;background:#00d4b1;"></div>
+    </div>
+    <div class="ct-row"><span class="ct-fmt">HEX</span><span class="ct-val" id="ctHex">#00d4b1</span><button class="ct-copy" data-fmt="hex">Copy</button></div>
+    <div class="ct-row"><span class="ct-fmt">RGB</span><span class="ct-val" id="ctRgb">rgb(0, 212, 177)</span><button class="ct-copy" data-fmt="rgb">Copy</button></div>
+    <div class="ct-row"><span class="ct-fmt">HSL</span><span class="ct-val" id="ctHsl">hsl(171, 100%, 42%)</span><button class="ct-copy" data-fmt="hsl">Copy</button></div>
+  </div>
+</div>
+
 <script>
 var vscode = acquireVsCodeApi();
 var settings = ${s};
@@ -1075,7 +1213,177 @@ function save() {
 
 window.addEventListener('message', function(e) {
   if (e.data.type === 'settings') { settings = e.data.settings; refreshControls(); }
+  if (e.data.type === 'font-loaded') { applyFontSettings(e.data.font); }
+  if (e.data.type === 'focus-loaded') { applyFocusState(e.data.focus); }
 });
+
+/* ─── collapse helpers for new sections ─── */
+['qc','focus','font','scratch','ct'].forEach(function(key) {
+  document.getElementById('masterHdr-' + key).addEventListener('click', function() {
+    document.getElementById('sec-' + key).classList.toggle('clp');
+    document.getElementById('ch-' + key).classList.toggle('o');
+  });
+});
+
+/* ─── QUICK COMMANDS ─── */
+var quickCommands = ${JSON.stringify(extra.quickCommands)};
+
+function renderQC() {
+  var list = document.getElementById('qcList');
+  if (!quickCommands.length) {
+    list.innerHTML = '<div class="qc-empty">No commands yet</div>';
+    return;
+  }
+  list.innerHTML = quickCommands.map(function(c, i) {
+    return '<div class="qc-item">' +
+      '<span class="qc-lbl" title="' + c.cmd.replace(/"/g,'&quot;') + '">' + c.label + '</span>' +
+      '<button class="qc-run" data-i="' + i + '">Run</button>' +
+      '<button class="qc-del" data-i="' + i + '">✕</button>' +
+    '</div>';
+  }).join('');
+  list.querySelectorAll('.qc-run').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      vscode.postMessage({ type: 'run-command', cmd: quickCommands[+btn.dataset.i].cmd });
+    });
+  });
+  list.querySelectorAll('.qc-del').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      quickCommands.splice(+btn.dataset.i, 1);
+      vscode.postMessage({ type: 'save-commands', commands: quickCommands });
+      renderQC();
+    });
+  });
+}
+renderQC();
+
+document.getElementById('qcAddBtn').addEventListener('click', function() {
+  var lbl = document.getElementById('qcLabel').value.trim();
+  var cmd = document.getElementById('qcCmd').value.trim();
+  if (!cmd) return;
+  quickCommands.push({ label: lbl || cmd, cmd: cmd });
+  vscode.postMessage({ type: 'save-commands', commands: quickCommands });
+  document.getElementById('qcLabel').value = '';
+  document.getElementById('qcCmd').value = '';
+  renderQC();
+});
+document.getElementById('qcCmd').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') document.getElementById('qcAddBtn').click();
+});
+
+/* ─── FOCUS MODE ─── */
+var focusState = ${JSON.stringify(extra.focusState)};
+var focusMap = {
+  focusActivityBar: 'activityBar',
+  focusStatusBar:   'statusBar',
+  focusMinimap:     'minimap',
+  focusBreadcrumbs: 'breadcrumbs',
+  focusPanel:       'panel',
+};
+function applyFocusState(state) {
+  focusState = state;
+  Object.keys(focusMap).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.checked = !!state[focusMap[id]];
+  });
+}
+applyFocusState(focusState);
+Object.keys(focusMap).forEach(function(id) {
+  document.getElementById(id).addEventListener('change', function(e) {
+    var key = focusMap[id];
+    focusState[key] = e.target.checked;
+    vscode.postMessage({ type: 'focus-toggle', key: key, value: e.target.checked });
+  });
+});
+
+/* ─── FONT CONTROLS ─── */
+var fontSettings = ${JSON.stringify(extra.fontSettings)};
+function applyFontSettings(f) {
+  fontSettings = f;
+  document.getElementById('fontFamily').value    = f.fontFamily    || '';
+  document.getElementById('fontSize').value      = f.fontSize      || 14;
+  document.getElementById('fontSizeVal').textContent = (f.fontSize || 14) + 'px';
+  document.getElementById('lineHeight').value    = f.lineHeight    || 0;
+  document.getElementById('lineHeightVal').textContent = f.lineHeight || 0;
+  document.getElementById('letterSpacing').value = f.letterSpacing || 0;
+  document.getElementById('letterSpacingVal').textContent = (f.letterSpacing || 0) + 'px';
+}
+applyFontSettings(fontSettings);
+
+document.getElementById('fontFamily').addEventListener('change', function(e) {
+  vscode.postMessage({ type: 'font-update', section: 'editor', key: 'fontFamily', value: e.target.value || undefined });
+});
+document.getElementById('fontSize').addEventListener('input', function(e) {
+  var v = +e.target.value;
+  document.getElementById('fontSizeVal').textContent = v + 'px';
+  vscode.postMessage({ type: 'font-update', section: 'editor', key: 'fontSize', value: v });
+});
+document.getElementById('lineHeight').addEventListener('input', function(e) {
+  var v = +e.target.value;
+  document.getElementById('lineHeightVal').textContent = v;
+  vscode.postMessage({ type: 'font-update', section: 'editor', key: 'lineHeight', value: v });
+});
+document.getElementById('letterSpacing').addEventListener('input', function(e) {
+  var v = +e.target.value;
+  document.getElementById('letterSpacingVal').textContent = v + 'px';
+  vscode.postMessage({ type: 'font-update', section: 'editor', key: 'letterSpacing', value: v });
+});
+document.getElementById('fontResetBtn').addEventListener('click', function() {
+  vscode.postMessage({ type: 'font-reset' });
+  setTimeout(function() {
+    vscode.postMessage({ type: 'request-font' });
+  }, 300);
+});
+
+/* ─── SCRATCH PAD ─── */
+var scratchEl = document.getElementById('scratchText');
+scratchEl.value = ${JSON.stringify(extra.scratchText)};
+var scratchTimer;
+scratchEl.addEventListener('input', function() {
+  clearTimeout(scratchTimer);
+  scratchTimer = setTimeout(function() {
+    vscode.postMessage({ type: 'save-scratch', text: scratchEl.value });
+    document.getElementById('scratchMeta').textContent = 'saved · per workspace';
+  }, 500);
+});
+
+/* ─── COLOR TOOLS ─── */
+function hexToRgbStr(hex) {
+  var r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+}
+function hexToHsl(hex) {
+  var r = parseInt(hex.slice(1,3),16)/255, g = parseInt(hex.slice(3,5),16)/255, b = parseInt(hex.slice(5,7),16)/255;
+  var max = Math.max(r,g,b), min = Math.min(r,g,b), h, s, l = (max+min)/2;
+  if (max === min) { h = s = 0; } else {
+    var d = max - min;
+    s = l > 0.5 ? d/(2-max-min) : d/(max+min);
+    switch(max) {
+      case r: h = ((g-b)/d + (g<b?6:0))/6; break;
+      case g: h = ((b-r)/d + 2)/6; break;
+      default: h = ((r-g)/d + 4)/6;
+    }
+  }
+  return 'hsl(' + Math.round(h*360) + ', ' + Math.round(s*100) + '%, ' + Math.round(l*100) + '%)';
+}
+function updateColor(hex) {
+  document.getElementById('ctPreview').style.background = hex;
+  document.getElementById('ctHex').textContent = hex;
+  document.getElementById('ctRgb').textContent = hexToRgbStr(hex);
+  document.getElementById('ctHsl').textContent = hexToHsl(hex);
+}
+document.getElementById('ctPicker').addEventListener('input', function(e) { updateColor(e.target.value); });
+document.querySelectorAll('.ct-copy').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var fmt = btn.dataset.fmt;
+    var text = fmt === 'hex' ? document.getElementById('ctHex').textContent
+             : fmt === 'rgb' ? document.getElementById('ctRgb').textContent
+             :                 document.getElementById('ctHsl').textContent;
+    vscode.postMessage({ type: 'copy-color', text: text });
+    btn.classList.add('flash');
+    setTimeout(function() { btn.classList.remove('flash'); }, 600);
+  });
+});
+updateColor('#00d4b1');
 
 init();
 </script>
@@ -1093,27 +1401,51 @@ class ArchitectusProvider {
     this._view = webviewView;
     webviewView.webview.options = { enableScripts: true };
     const settings = this._load();
-    webviewView.webview.html = getWebviewHTML(settings);
+    const extra = this._loadExtra();
+    webviewView.webview.html = getWebviewHTML(settings, extra);
 
     webviewView.webview.onDidReceiveMessage(msg => {
       switch (msg.type) {
-        case 'save':
-          this._save(msg.settings);
-          break;
-        case 'apply':
-          this._apply(msg.settings);
-          break;
-        case 'reload':
-          this._reload();
-          break;
-        case 'reset':
-          this._reset();
-          break;
-        case 'master-toggle':
-          this._masterToggle(msg.value);
-          break;
+        case 'save':           this._save(msg.settings); break;
+        case 'apply':          this._apply(msg.settings); break;
+        case 'reload':         this._reload(); break;
+        case 'reset':          this._reset(); break;
+        case 'master-toggle':  this._masterToggle(msg.value); break;
+        case 'run-command':    this._runCommand(msg.cmd); break;
+        case 'save-commands':  this._ctx.globalState.update('architectusQuickCommands', msg.commands); break;
+        case 'save-scratch':   this._ctx.workspaceState.update('architectusScratch', msg.text); break;
+        case 'font-update':    this._updateFont(msg.section, msg.key, msg.value); break;
+        case 'font-reset':     this._resetFonts(); break;
+        case 'request-font':   this._sendFontSettings(); break;
+        case 'focus-toggle':   this._focusToggle(msg.key, msg.value); break;
+        case 'copy-color':     vscode.env.clipboard.writeText(msg.text); break;
       }
     });
+  }
+
+  _loadExtra() {
+    const cfg = vscode.workspace.getConfiguration;
+    return {
+      quickCommands: this._ctx.globalState.get('architectusQuickCommands', [
+        { label: 'Install deps', cmd: 'npm install' },
+        { label: 'Dev server',   cmd: 'npm run dev'  },
+        { label: 'Git status',   cmd: 'git status'   },
+      ]),
+      scratchText: this._ctx.workspaceState.get('architectusScratch', ''),
+      fontSettings: {
+        fontFamily:    cfg('editor').get('fontFamily',    ''),
+        fontSize:      cfg('editor').get('fontSize',      14),
+        lineHeight:    cfg('editor').get('lineHeight',    0),
+        letterSpacing: cfg('editor').get('letterSpacing', 0),
+      },
+      focusState: {
+        activityBar: cfg('workbench').get('activityBar.visible', true),
+        statusBar:   cfg('workbench').get('statusBar.visible',   true),
+        minimap:     cfg('editor').get('minimap.enabled',        true),
+        breadcrumbs: cfg('breadcrumbs').get('enabled',           true),
+        panel:       this._ctx.globalState.get('architectusPanelVisible', true),
+      },
+    };
   }
 
   _load() {
@@ -1150,6 +1482,48 @@ class ArchitectusProvider {
         return;
       }
       vscode.window.showInformationMessage('Architectus: CSS disabled.');
+    }
+  }
+
+  _runCommand(cmd) {
+    const terminal = vscode.window.activeTerminal || vscode.window.createTerminal('Architectus');
+    terminal.show(true);
+    terminal.sendText(cmd);
+  }
+
+  _updateFont(section, key, value) {
+    vscode.workspace.getConfiguration(section).update(key, value === '' ? undefined : value, vscode.ConfigurationTarget.Global);
+  }
+
+  _resetFonts() {
+    const cfg = vscode.workspace.getConfiguration('editor');
+    ['fontFamily','fontSize','lineHeight','letterSpacing'].forEach(k => cfg.update(k, undefined, vscode.ConfigurationTarget.Global));
+  }
+
+  _sendFontSettings() {
+    if (!this._view) return;
+    const cfg = vscode.workspace.getConfiguration;
+    this._view.webview.postMessage({ type: 'font-loaded', font: {
+      fontFamily:    cfg('editor').get('fontFamily',    ''),
+      fontSize:      cfg('editor').get('fontSize',      14),
+      lineHeight:    cfg('editor').get('lineHeight',    0),
+      letterSpacing: cfg('editor').get('letterSpacing', 0),
+    }});
+  }
+
+  _focusToggle(key, value) {
+    const map = {
+      activityBar: ['workbench',   'activityBar.visible'],
+      statusBar:   ['workbench',   'statusBar.visible'],
+      minimap:     ['editor',      'minimap.enabled'],
+      breadcrumbs: ['breadcrumbs', 'enabled'],
+    };
+    if (key === 'panel') {
+      this._ctx.globalState.update('architectusPanelVisible', value);
+      vscode.commands.executeCommand(value ? 'workbench.action.openPanel' : 'workbench.action.closePanel');
+    } else if (map[key]) {
+      const [section, cfgKey] = map[key];
+      vscode.workspace.getConfiguration(section).update(cfgKey, value, vscode.ConfigurationTarget.Global);
     }
   }
 
