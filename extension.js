@@ -49,7 +49,7 @@ function cssFileUrl() {
 }
 
 function isInjected() {
-  try { return fs.readFileSync(getWorkbenchHtml(), 'utf8').includes('ryze-inject'); }
+  try { return fs.readFileSync(getWorkbenchHtml(), 'utf8').includes('architectus-inject'); }
   catch { return false; }
 }
 
@@ -57,18 +57,18 @@ const TYPING_SCRIPT = '<script>(function(){' +
   'var t;' +
   'document.addEventListener(\'keydown\',function(e){' +
   'if(e.key.length>1&&e.key!==\'Backspace\'&&e.key!==\'Delete\')return;' +
-  'document.body.classList.add(\'ryze-typing\');' +
+  'document.body.classList.add(\'architectus-typing\');' +
   'clearTimeout(t);' +
-  't=setTimeout(function(){document.body.classList.remove(\'ryze-typing\');},220);' +
+  't=setTimeout(function(){document.body.classList.remove(\'architectus-typing\');},220);' +
   '});' +
   '})();<\/script>';
 
 function injectCSS() {
   const htmlPath = getWorkbenchHtml();
   let html = fs.readFileSync(htmlPath, 'utf8');
-  if (html.includes('ryze-inject')) return;
-  const tag = '<!-- ryze-inject -->' +
-    '<link rel="stylesheet" data-name="ryze-controls" href="' + cssFileUrl() + '">' +
+  if (html.includes('architectus-inject')) return;
+  const tag = '<!-- architectus-inject -->' +
+    '<link rel="stylesheet" data-name="architectus" href="' + cssFileUrl() + '">' +
     TYPING_SCRIPT;
   fs.writeFileSync(htmlPath, html.replace('</head>', tag + '\n</head>'), 'utf8');
 }
@@ -76,7 +76,7 @@ function injectCSS() {
 function uninjectCSS() {
   const htmlPath = getWorkbenchHtml();
   let html = fs.readFileSync(htmlPath, 'utf8');
-  html = html.replace(/<!-- ryze-inject -->[\s\S]*?<\/script>\n?/g, '');
+  html = html.replace(/<!-- architectus-inject -->[\s\S]*?<\/script>\n?/g, '');
   fs.writeFileSync(htmlPath, html, 'utf8');
 }
 
@@ -194,27 +194,27 @@ function generateCSS(s) {
     const freq   = s.ryzeGlitchFrequency || 7;
     const freqB  = Math.round(freq * 13 / 9);
     const typing = s.ryzeTypingGlitch;
-    const glitchAnimA = glitch ? ', text-glitch-a var(--ryze-freq-a) steps(1) infinite' : '';
-    const glitchAnimB = glitch ? ', text-glitch-b var(--ryze-freq-b) steps(1) infinite' : '';
+    const glitchAnimA = glitch ? ', text-glitch-a var(--architectus-freq-a) steps(1) infinite' : '';
+    const glitchAnimB = glitch ? ', text-glitch-b var(--architectus-freq-b) steps(1) infinite' : '';
     const typingAnim  = (glitch && typing) ? ', text-glitch-typing 0.22s steps(3) 1' : '';
 
-    c += ':root { --ryze-speed: ' + s.ryzeSpeed + 's;';
-    if (glitch) c += ' --ryze-freq-a: ' + freq + 's; --ryze-freq-b: ' + freqB + 's;';
+    c += ':root { --architectus-speed: ' + s.ryzeSpeed + 's;';
+    if (glitch) c += ' --architectus-freq-a: ' + freq + 's; --architectus-freq-b: ' + freqB + 's;';
     c += ' }\n';
 
     c += '/* --- Front/back text flip --- */\n';
     c += '.editor-container .monaco-editor::before,\n.editor-container .monaco-editor::after {\n' + shared + '}\n';
     c += '.editor-container .monaco-editor::before {\n';
     c += '  content: "' + front + '";\n';
-    c += '  animation: ryze-front var(--ryze-speed) linear infinite' + glitchAnimA + ';\n}\n';
+    c += '  animation: architectus-front var(--architectus-speed) linear infinite' + glitchAnimA + ';\n}\n';
     c += '.editor-container .monaco-editor::after {\n';
     c += '  content: "' + back + '";\n';
-    c += '  animation: ryze-back var(--ryze-speed) linear infinite' + glitchAnimB + ';\n}\n';
+    c += '  animation: architectus-back var(--architectus-speed) linear infinite' + glitchAnimB + ';\n}\n';
 
-    c += '@keyframes ryze-front {\n';
+    c += '@keyframes architectus-front {\n';
     c += '  from { transform: translate(-50%,-50%) rotateY(0deg); }\n';
     c += '  to   { transform: translate(-50%,-50%) rotateY(360deg); }\n}\n';
-    c += '@keyframes ryze-back {\n';
+    c += '@keyframes architectus-back {\n';
     c += '  from { transform: translate(-50%,-50%) rotateY(180deg); }\n';
     c += '  to   { transform: translate(-50%,-50%) rotateY(540deg); }\n}\n';
 
@@ -261,10 +261,10 @@ function generateCSS(s) {
         c += '  33%  { filter: ' + tRL + '; translate: '  + Math.round(tgs*0.8) + 'px -' + Math.round(tgs*0.3) + 'px; }\n';
         c += '  66%  { filter: ' + tM  + '; translate: -' + Math.round(tgs*0.5) + 'px ' + Math.round(tgs*0.5) + 'px; }\n';
         c += '  100% { filter: none; translate: 0 0; }\n}\n';
-        c += 'body.ryze-typing .editor-container .monaco-editor::before {\n';
-        c += '  animation: ryze-front var(--ryze-speed) linear infinite' + glitchAnimA + typingAnim + ';\n}\n';
-        c += 'body.ryze-typing .editor-container .monaco-editor::after {\n';
-        c += '  animation: ryze-back var(--ryze-speed) linear infinite' + glitchAnimB + typingAnim + ';\n}\n';
+        c += 'body.architectus-typing .editor-container .monaco-editor::before {\n';
+        c += '  animation: architectus-front var(--architectus-speed) linear infinite' + glitchAnimA + typingAnim + ';\n}\n';
+        c += 'body.architectus-typing .editor-container .monaco-editor::after {\n';
+        c += '  animation: architectus-back var(--architectus-speed) linear infinite' + glitchAnimB + typingAnim + ';\n}\n';
       }
     }
   }
@@ -272,8 +272,10 @@ function generateCSS(s) {
   return c;
 }
 
-function getWebviewHTML(settings) {
+function getWebviewHTML(settings, injected) {
   const s = JSON.stringify(settings);
+  const injCls = injected ? ' active' : '';
+  const injTxt = injected ? 'INJECTED' : 'NOT INJECTED';
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -665,6 +667,24 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
   font-style: italic;
   color: var(--tx);
 }
+
+/* Injection status badge */
+.inj-status {
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  margin-top: 7px;
+}
+.inj-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--mu); flex-shrink: 0;
+  transition: all 0.4s;
+}
+.inj-txt {
+  font-family: var(--mono); font-size: 8px;
+  letter-spacing: 0.2em; color: var(--mu);
+  text-transform: uppercase; transition: color 0.4s;
+}
+.inj-status.active .inj-dot { background: var(--ac); box-shadow: 0 0 6px var(--ac); }
+.inj-status.active .inj-txt { color: var(--ac); }
 </style>
 </head>
 <body>
@@ -674,6 +694,10 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
     <div class="logo">ARCHITECTUS</div>
     <div class="hdr-rule"><span class="hdr-gem">&#10022;</span></div>
     <div class="logo-sub">Control Matrix</div>
+    <div class="inj-status${injCls}" id="injStatus">
+      <span class="inj-dot"></span>
+      <span class="inj-txt" id="injTxt">${injTxt}</span>
+    </div>
   </div>
 </div>
 
@@ -1067,11 +1091,16 @@ function save() {
   vscode.postMessage({ type: 'save', settings: settings });
 }
 
+function setInjected(val) {
+  var el  = document.getElementById('injStatus');
+  var txt = document.getElementById('injTxt');
+  if (val) { el.classList.add('active');    txt.textContent = 'INJECTED'; }
+  else      { el.classList.remove('active'); txt.textContent = 'NOT INJECTED'; }
+}
+
 window.addEventListener('message', function(e) {
-  if (e.data.type === 'settings') {
-    settings = e.data.settings;
-    refreshControls();
-  }
+  if (e.data.type === 'settings')  { settings = e.data.settings; refreshControls(); }
+  if (e.data.type === 'injected')  { setInjected(e.data.value); }
 });
 
 init();
@@ -1080,7 +1109,7 @@ init();
 </html>`;
 }
 
-class RyzeControlsProvider {
+class ArchitectusProvider {
   constructor(context) {
     this._ctx = context;
     this._view = null;
@@ -1090,7 +1119,7 @@ class RyzeControlsProvider {
     this._view = webviewView;
     webviewView.webview.options = { enableScripts: true };
     const settings = this._load();
-    webviewView.webview.html = getWebviewHTML(settings);
+    webviewView.webview.html = getWebviewHTML(settings, isInjected());
 
     webviewView.webview.onDidReceiveMessage(msg => {
       switch (msg.type) {
@@ -1111,12 +1140,12 @@ class RyzeControlsProvider {
   }
 
   _load() {
-    const stored = this._ctx.globalState.get('ryzeSettings', {});
+    const stored = this._ctx.globalState.get('architectusSettings', {});
     return Object.assign({}, DEFAULTS, stored);
   }
 
   _save(settings) {
-    this._ctx.globalState.update('ryzeSettings', settings);
+    this._ctx.globalState.update('architectusSettings', settings);
   }
 
   _apply(settings) {
@@ -1135,7 +1164,7 @@ class RyzeControlsProvider {
   }
 
   _reset() {
-    this._ctx.globalState.update('ryzeSettings', DEFAULTS);
+    this._ctx.globalState.update('architectusSettings', DEFAULTS);
     if (this._view) {
       this._view.webview.postMessage({ type: 'settings', settings: DEFAULTS });
     }
@@ -1143,23 +1172,25 @@ class RyzeControlsProvider {
 }
 
 function activate(context) {
-  const provider = new RyzeControlsProvider(context);
+  const provider = new ArchitectusProvider(context);
   context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider('ryzeControls.panel', provider),
+    vscode.window.registerWebviewViewProvider('architectus.panel', provider),
 
-    vscode.commands.registerCommand('ryzeControls.enable', () => {
+    vscode.commands.registerCommand('architectus.enable', () => {
       const s = provider._load();
       try { fs.writeFileSync(CSS_FILE, generateCSS(s), 'utf8'); } catch(e) {
         vscode.window.showErrorMessage('Architectus: ' + e.message); return;
       }
       try { injectCSS(); } catch(e) { showPermissionError(); return; }
+      if (provider._view) provider._view.webview.postMessage({ type: 'injected', value: true });
       vscode.window.showInformationMessage('Architectus: Enabled! Reload?', 'Reload').then(c => {
         if (c === 'Reload') vscode.commands.executeCommand('workbench.action.reloadWindow');
       });
     }),
 
-    vscode.commands.registerCommand('ryzeControls.disable', () => {
+    vscode.commands.registerCommand('architectus.disable', () => {
       try { uninjectCSS(); } catch(e) { showPermissionError(); return; }
+      if (provider._view) provider._view.webview.postMessage({ type: 'injected', value: false });
       vscode.window.showInformationMessage('Architectus: Disabled! Reload?', 'Reload').then(c => {
         if (c === 'Reload') vscode.commands.executeCommand('workbench.action.reloadWindow');
       });
