@@ -33,6 +33,7 @@ const DEFAULTS = {
   cursorColor1: '#00d4b1',
   cursorColor2: '#007fd4',
   cursorPulseSpeed: 5,
+  masterEnabled: true,
   syntaxGlowEnabled: true,
   scanlinesEnabled: true,
   scanlinesOpacity: 20,
@@ -228,6 +229,7 @@ function generateCSS(s) {
 
 function getWebviewHTML(settings) {
   const s = JSON.stringify(settings);
+  const masterChk = settings.masterEnabled !== false ? 'checked' : '';
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -676,7 +678,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
       <span class="msec-title">Background Console</span>
     </div>
     <label class="tog" title="Enable / disable injection">
-      <input type="checkbox" id="masterEnabled" checked>
+      <input type="checkbox" id="masterEnabled" ${masterChk}>
       <span class="trk"></span>
     </label>
   </div>
@@ -1136,6 +1138,8 @@ class ArchitectusProvider {
 
   _masterToggle(enable) {
     const s = this._load();
+    s.masterEnabled = enable;
+    this._save(s);
     if (enable) {
       this._apply(s);
     } else {
