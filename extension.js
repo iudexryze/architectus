@@ -40,52 +40,6 @@ const DEFAULTS = {
   scrollbarHoverColor: '#ff79c6',
 };
 
-function getWorkbenchHtml() {
-  return path.join(vscode.env.appRoot, 'out', 'vs', 'workbench', 'workbench.desktop.main.html');
-}
-
-function cssFileUrl() {
-  return 'file://' + CSS_FILE.split(path.sep).join('/');
-}
-
-function isInjected() {
-  try { return fs.readFileSync(getWorkbenchHtml(), 'utf8').includes('architectus-inject'); }
-  catch { return false; }
-}
-
-const TYPING_SCRIPT = '<script>(function(){' +
-  'var t;' +
-  'document.addEventListener(\'keydown\',function(e){' +
-  'if(e.key.length>1&&e.key!==\'Backspace\'&&e.key!==\'Delete\')return;' +
-  'document.body.classList.add(\'architectus-typing\');' +
-  'clearTimeout(t);' +
-  't=setTimeout(function(){document.body.classList.remove(\'architectus-typing\');},220);' +
-  '});' +
-  '})();<\/script>';
-
-function injectCSS() {
-  const htmlPath = getWorkbenchHtml();
-  let html = fs.readFileSync(htmlPath, 'utf8');
-  if (html.includes('architectus-inject')) return;
-  const tag = '<!-- architectus-inject -->' +
-    '<link rel="stylesheet" data-name="architectus" href="' + cssFileUrl() + '">' +
-    TYPING_SCRIPT;
-  fs.writeFileSync(htmlPath, html.replace('</head>', tag + '\n</head>'), 'utf8');
-}
-
-function uninjectCSS() {
-  const htmlPath = getWorkbenchHtml();
-  let html = fs.readFileSync(htmlPath, 'utf8');
-  html = html.replace(/<!-- architectus-inject -->[\s\S]*?<\/script>\n?/g, '');
-  fs.writeFileSync(htmlPath, html, 'utf8');
-}
-
-function showPermissionError() {
-  const cmd = 'sudo chown -R $(whoami) "' + vscode.env.appRoot + '"';
-  vscode.window.showErrorMessage('Architectus: Permission denied. Fix ownership first.', 'Copy Command')
-    .then(c => { if (c === 'Copy Command') vscode.env.clipboard.writeText(cmd); });
-}
-
 function hexToRgba(hex, alpha) {
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
@@ -272,10 +226,8 @@ function generateCSS(s) {
   return c;
 }
 
-function getWebviewHTML(settings, injected) {
+function getWebviewHTML(settings) {
   const s = JSON.stringify(settings);
-  const injCls = injected ? ' active' : '';
-  const injTxt = injected ? 'INJECTED' : 'NOT INJECTED';
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -692,23 +644,6 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 .msec-body { }
 .msec-body.clp { display: none; }
 
-/* Injection status badge */
-.inj-status {
-  display: flex; align-items: center; justify-content: center; gap: 5px;
-  margin-top: 7px;
-}
-.inj-dot {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: var(--mu); flex-shrink: 0;
-  transition: all 0.4s;
-}
-.inj-txt {
-  font-family: var(--mono); font-size: 8px;
-  letter-spacing: 0.2em; color: var(--mu);
-  text-transform: uppercase; transition: color 0.4s;
-}
-.inj-status.active .inj-dot { background: var(--ac); box-shadow: 0 0 6px var(--ac); }
-.inj-status.active .inj-txt { color: var(--ac); }
 </style>
 </head>
 <body>
@@ -718,10 +653,6 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
     <div class="logo">ARCHITECTUS</div>
     <div class="hdr-rule"><span class="hdr-gem">&#10022;</span></div>
     <div class="logo-sub">Control Matrix</div>
-    <div class="inj-status${injCls}" id="injStatus">
-      <span class="inj-dot"></span>
-      <span class="inj-txt" id="injTxt">${injTxt}</span>
-    </div>
   </div>
 </div>
 
@@ -745,7 +676,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
       <span class="msec-title">Background Console</span>
     </div>
     <label class="tog" title="Enable / disable injection">
-      <input type="checkbox" id="masterEnabled" ${injected ? 'checked' : ''}>
+      <input type="checkbox" id="masterEnabled" checked>
       <span class="trk"></span>
     </label>
   </div>
@@ -1121,7 +1052,6 @@ function init() {
   });
   document.getElementById('masterEnabled').addEventListener('change', function(e) {
     vscode.postMessage({ type: 'master-toggle', value: e.target.checked });
-    setInjected(e.target.checked);
   });
 
   document.getElementById('btnApply').addEventListener('click', function() {
@@ -1141,18 +1071,8 @@ function save() {
   vscode.postMessage({ type: 'save', settings: settings });
 }
 
-function setInjected(val) {
-  var el  = document.getElementById('injStatus');
-  var txt = document.getElementById('injTxt');
-  var tog = document.getElementById('masterEnabled');
-  if (val) { el.classList.add('active');    txt.textContent = 'INJECTED'; }
-  else      { el.classList.remove('active'); txt.textContent = 'NOT INJECTED'; }
-  if (tog) tog.checked = val;
-}
-
 window.addEventListener('message', function(e) {
-  if (e.data.type === 'settings')  { settings = e.data.settings; refreshControls(); }
-  if (e.data.type === 'injected')  { setInjected(e.data.value); }
+  if (e.data.type === 'settings') { settings = e.data.settings; refreshControls(); }
 });
 
 init();
@@ -1171,7 +1091,7 @@ class ArchitectusProvider {
     this._view = webviewView;
     webviewView.webview.options = { enableScripts: true };
     const settings = this._load();
-    webviewView.webview.html = getWebviewHTML(settings, isInjected());
+    webviewView.webview.html = getWebviewHTML(settings);
 
     webviewView.webview.onDidReceiveMessage(msg => {
       switch (msg.type) {
@@ -1215,18 +1135,17 @@ class ArchitectusProvider {
   }
 
   _masterToggle(enable) {
+    const s = this._load();
+    const css = enable ? generateCSS(s) : '/* Architectus disabled */\n';
     try {
-      if (enable) {
-        const s = this._load();
-        fs.writeFileSync(CSS_FILE, generateCSS(s), 'utf8');
-        injectCSS();
-      } else {
-        uninjectCSS();
-      }
-    } catch(e) { showPermissionError(); return; }
+      fs.writeFileSync(CSS_FILE, css, 'utf8');
+    } catch(e) {
+      vscode.window.showErrorMessage('Architectus: Could not write CSS — ' + e.message);
+      return;
+    }
     vscode.window.showInformationMessage(
-      'Architectus: ' + (enable ? 'Enabled' : 'Disabled') + '. Reload to apply.', 'Reload'
-    ).then(c => { if (c === 'Reload') this._reload(); });
+      'Architectus: CSS ' + (enable ? 'enabled' : 'disabled') + '. Run "Reload Custom CSS and JS" to apply.'
+    );
   }
 
   _reload() {
@@ -1244,27 +1163,7 @@ class ArchitectusProvider {
 function activate(context) {
   const provider = new ArchitectusProvider(context);
   context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider('architectus.panel', provider),
-
-    vscode.commands.registerCommand('architectus.enable', () => {
-      const s = provider._load();
-      try { fs.writeFileSync(CSS_FILE, generateCSS(s), 'utf8'); } catch(e) {
-        vscode.window.showErrorMessage('Architectus: ' + e.message); return;
-      }
-      try { injectCSS(); } catch(e) { showPermissionError(); return; }
-      if (provider._view) provider._view.webview.postMessage({ type: 'injected', value: true });
-      vscode.window.showInformationMessage('Architectus: Enabled! Reload?', 'Reload').then(c => {
-        if (c === 'Reload') vscode.commands.executeCommand('workbench.action.reloadWindow');
-      });
-    }),
-
-    vscode.commands.registerCommand('architectus.disable', () => {
-      try { uninjectCSS(); } catch(e) { showPermissionError(); return; }
-      if (provider._view) provider._view.webview.postMessage({ type: 'injected', value: false });
-      vscode.window.showInformationMessage('Architectus: Disabled! Reload?', 'Reload').then(c => {
-        if (c === 'Reload') vscode.commands.executeCommand('workbench.action.reloadWindow');
-      });
-    })
+    vscode.window.registerWebviewViewProvider('architectus.panel', provider)
   );
 }
 

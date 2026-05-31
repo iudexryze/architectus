@@ -29,15 +29,6 @@
         }
       ]
     },
-    "commands": [
-      {
-        "command": "architectus.enable",
-        "title": "Architectus: Enable CSS"
-      },
-      {
-        "command": "architectus.disable",
-        "title": "Architectus: Disable CSS"
-      }
-    ]
+    "commands": []
   }
 }
