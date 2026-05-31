@@ -954,11 +954,11 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <div class="msec">
   <div class="msec-hdr">
     <div class="msec-hdr-left" id="masterHdr-qc">
-      <i class="chev o" id="ch-qc">&#9658;</i>
+      <i class="chev" id="ch-qc">&#9658;</i>
       <span class="msec-title">Quick Commands</span>
     </div>
   </div>
-  <div class="msec-body" id="sec-qc">
+  <div class="msec-body clp" id="sec-qc">
     <div class="qc-list" id="qcList"></div>
     <div class="qc-add">
       <input type="text" id="qcLabel" placeholder="Label" style="flex:0 0 80px;">
@@ -972,11 +972,11 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <div class="msec">
   <div class="msec-hdr">
     <div class="msec-hdr-left" id="masterHdr-focus">
-      <i class="chev o" id="ch-focus">&#9658;</i>
+      <i class="chev" id="ch-focus">&#9658;</i>
       <span class="msec-title">Focus Mode</span>
     </div>
   </div>
-  <div class="msec-body" id="sec-focus">
+  <div class="msec-body clp" id="sec-focus">
     <div class="row"><span class="lbl">Activity Bar</span><div class="inp" style="display:flex;align-items:center;gap:8px;"><label class="tog"><input type="checkbox" id="focusActivityBar"><span class="trk"></span></label><span class="tlbl" onclick="document.getElementById('focusActivityBar').click()">Visible</span></div></div>
     <div class="row"><span class="lbl">Status Bar</span><div class="inp" style="display:flex;align-items:center;gap:8px;"><label class="tog"><input type="checkbox" id="focusStatusBar"><span class="trk"></span></label><span class="tlbl" onclick="document.getElementById('focusStatusBar').click()">Visible</span></div></div>
     <div class="row"><span class="lbl">Minimap</span><div class="inp" style="display:flex;align-items:center;gap:8px;"><label class="tog"><input type="checkbox" id="focusMinimap"><span class="trk"></span></label><span class="tlbl" onclick="document.getElementById('focusMinimap').click()">Visible</span></div></div>
@@ -989,11 +989,11 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <div class="msec">
   <div class="msec-hdr">
     <div class="msec-hdr-left" id="masterHdr-font">
-      <i class="chev o" id="ch-font">&#9658;</i>
+      <i class="chev" id="ch-font">&#9658;</i>
       <span class="msec-title">Font Controls</span>
     </div>
   </div>
-  <div class="msec-body" id="sec-font">
+  <div class="msec-body clp" id="sec-font">
     <div class="row"><span class="lbl">Family</span><div class="inp"><input type="text" id="fontFamily" placeholder="Default"></div></div>
     <div class="row"><span class="lbl">Size</span><div class="inp sl-row"><input type="range" id="fontSize" min="10" max="28" step="1"><span class="sl-val" id="fontSizeVal">14px</span></div></div>
     <div class="row"><span class="lbl">Line height</span><div class="inp sl-row"><input type="range" id="lineHeight" min="0" max="60" step="1"><span class="sl-val" id="lineHeightVal">0</span></div></div>
@@ -1006,11 +1006,11 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <div class="msec">
   <div class="msec-hdr">
     <div class="msec-hdr-left" id="masterHdr-scratch">
-      <i class="chev o" id="ch-scratch">&#9658;</i>
+      <i class="chev" id="ch-scratch">&#9658;</i>
       <span class="msec-title">Scratch Pad</span>
     </div>
   </div>
-  <div class="msec-body" id="sec-scratch">
+  <div class="msec-body clp" id="sec-scratch">
     <div class="scratch-wrap">
       <textarea class="scratch-area" id="scratchText" placeholder="Notes, snippets, temp values…" spellcheck="false"></textarea>
       <div class="scratch-meta" id="scratchMeta">auto-saved · per workspace</div>
@@ -1022,11 +1022,11 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <div class="msec">
   <div class="msec-hdr">
     <div class="msec-hdr-left" id="masterHdr-ct">
-      <i class="chev o" id="ch-ct">&#9658;</i>
+      <i class="chev" id="ch-ct">&#9658;</i>
       <span class="msec-title">Color Tools</span>
     </div>
   </div>
-  <div class="msec-body" id="sec-ct">
+  <div class="msec-body clp" id="sec-ct">
     <div class="ct-picker-row">
       <span class="ct-picker-lbl">Pick</span>
       <input type="color" id="ctPicker" value="#00d4b1" style="width:36px;height:26px;flex-shrink:0;">
