@@ -24,7 +24,7 @@ Glow animations and a control panel sidebar for VS Code.
 
 ### Background Console
 
-Collapsible module for all glow and animation effects. The toggle in the section header writes the full CSS (on) or clears it (off) — same as clicking Apply CSS. Run **Reload Custom CSS and JS** after toggling to apply.
+Collapsible module for all glow and animation effects. The toggle in the section header writes the full CSS (on) or clears it (off) — same as clicking Apply CSS. State is persisted across reloads. Run **Reload Custom CSS and JS** after toggling to apply.
 
 | Sub-section | Controls |
 |---|---|
