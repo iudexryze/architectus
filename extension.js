@@ -668,6 +668,30 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
   color: var(--tx);
 }
 
+/* Master section — top-level collapsible module */
+.msec { border-bottom: 1px solid var(--bd2); }
+
+.msec-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 14px;
+  cursor: default;
+  background: linear-gradient(90deg, var(--s2), rgba(0,196,168,0.04));
+  border-bottom: 1px solid var(--bd2);
+  border-top: 1px solid rgba(0,196,168,0.12);
+}
+.msec-hdr-left {
+  display: flex; align-items: center; gap: 9px;
+  cursor: pointer; user-select: none; flex: 1;
+}
+.msec-title {
+  font-family: var(--mono);
+  font-size: 10px; font-weight: normal;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--ac);
+}
+.msec-body { }
+.msec-body.clp { display: none; }
+
 /* Injection status badge */
 .inj-status {
   display: flex; align-items: center; justify-content: center; gap: 5px;
@@ -712,6 +736,20 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
   <button class="btn"   id="btnReset">Reset</button>
 </div>
 <button class="btn-full" id="btnTheme">Pick Colors from Active Theme</button>
+
+<!-- BACKGROUND CONSOLE master section -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr">
+      <i class="chev o" id="ch-master">&#9658;</i>
+      <span class="msec-title">Background Console</span>
+    </div>
+    <label class="tog" title="Enable / disable injection">
+      <input type="checkbox" id="masterEnabled" ${injected ? 'checked' : ''}>
+      <span class="trk"></span>
+    </label>
+  </div>
+  <div class="msec-body" id="sec-master">
 
 <!-- RYZE Background -->
 <div class="sec">
@@ -926,6 +964,9 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
   </div>
 </div>
 
+  </div><!-- /msec-body -->
+</div><!-- /msec Background Console -->
+
 <script>
 var vscode = acquireVsCodeApi();
 var settings = ${s};
@@ -1074,6 +1115,15 @@ function init() {
     });
   });
 
+  document.getElementById('masterHdr').addEventListener('click', function() {
+    document.getElementById('sec-master').classList.toggle('clp');
+    document.getElementById('ch-master').classList.toggle('o');
+  });
+  document.getElementById('masterEnabled').addEventListener('change', function(e) {
+    vscode.postMessage({ type: 'master-toggle', value: e.target.checked });
+    setInjected(e.target.checked);
+  });
+
   document.getElementById('btnApply').addEventListener('click', function() {
     vscode.postMessage({ type: 'apply', settings: settings });
     showStatus('CSS WRITTEN — RELOAD TO APPLY');
@@ -1094,8 +1144,10 @@ function save() {
 function setInjected(val) {
   var el  = document.getElementById('injStatus');
   var txt = document.getElementById('injTxt');
+  var tog = document.getElementById('masterEnabled');
   if (val) { el.classList.add('active');    txt.textContent = 'INJECTED'; }
   else      { el.classList.remove('active'); txt.textContent = 'NOT INJECTED'; }
+  if (tog) tog.checked = val;
 }
 
 window.addEventListener('message', function(e) {
@@ -1135,6 +1187,9 @@ class ArchitectusProvider {
         case 'reset':
           this._reset();
           break;
+        case 'master-toggle':
+          this._masterToggle(msg.value);
+          break;
       }
     });
   }
@@ -1157,6 +1212,21 @@ class ArchitectusProvider {
       return;
     }
     vscode.window.showInformationMessage('Architectus: CSS written.');
+  }
+
+  _masterToggle(enable) {
+    try {
+      if (enable) {
+        const s = this._load();
+        fs.writeFileSync(CSS_FILE, generateCSS(s), 'utf8');
+        injectCSS();
+      } else {
+        uninjectCSS();
+      }
+    } catch(e) { showPermissionError(); return; }
+    vscode.window.showInformationMessage(
+      'Architectus: ' + (enable ? 'Enabled' : 'Disabled') + '. Reload to apply.', 'Reload'
+    ).then(c => { if (c === 'Reload') this._reload(); });
   }
 
   _reload() {
