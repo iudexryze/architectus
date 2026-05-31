@@ -1136,16 +1136,17 @@ class ArchitectusProvider {
 
   _masterToggle(enable) {
     const s = this._load();
-    const css = enable ? generateCSS(s) : '/* Architectus disabled */\n';
-    try {
-      fs.writeFileSync(CSS_FILE, css, 'utf8');
-    } catch(e) {
-      vscode.window.showErrorMessage('Architectus: Could not write CSS — ' + e.message);
-      return;
+    if (enable) {
+      this._apply(s);
+    } else {
+      try {
+        fs.writeFileSync(CSS_FILE, '/* Architectus disabled */\n', 'utf8');
+      } catch(e) {
+        vscode.window.showErrorMessage('Architectus: Could not write CSS — ' + e.message);
+        return;
+      }
+      vscode.window.showInformationMessage('Architectus: CSS disabled.');
     }
-    vscode.window.showInformationMessage(
-      'Architectus: CSS ' + (enable ? 'enabled' : 'disabled') + '. Run "Reload Custom CSS and JS" to apply.'
-    );
   }
 
   _reload() {
