@@ -2,7 +2,7 @@
   "name": "architectus",
   "displayName": "Architectus",
   "description": "Glow & animation control panel for VS Code",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "publisher": "IudexRyze",
   "license": "MIT",
   "engines": { "vscode": "^1.70.0" },

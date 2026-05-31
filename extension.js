@@ -672,6 +672,106 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 .ct-copy:hover { border-color: var(--ac2); color: var(--ac); }
 .ct-copy.flash { border-color: var(--ac); color: var(--ac); box-shadow: 0 0 6px rgba(0,196,168,0.4); }
 
+/* ═══════════════════════════════════
+   PATH UTILS
+   ═══════════════════════════════════ */
+.pu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
+.pu-btn { padding: 7px 4px; background: rgba(0,196,168,0.06); border: 1px solid var(--bd2); color: var(--tx); font-family: var(--serif); font-size: 10px; font-style: italic; letter-spacing: 0.08em; cursor: pointer; transition: all 0.14s; text-align: center; }
+.pu-btn:hover { border-color: var(--ac2); color: var(--ac); background: rgba(0,196,168,0.12); }
+.pu-info { font-family: var(--mono); font-size: 9px; color: var(--mu); margin-top: 7px; word-break: break-all; line-height: 1.55; }
+
+/* ═══════════════════════════════════
+   TODO SCANNER
+   ═══════════════════════════════════ */
+.todo-scan-btn { display: block; width: 100%; padding: 7px; background: rgba(0,196,168,0.06); border: 1px solid var(--bd2); color: var(--tx); font-family: var(--serif); font-size: 10px; font-style: italic; letter-spacing: 0.1em; cursor: pointer; margin-bottom: 8px; transition: all 0.14s; }
+.todo-scan-btn:hover { border-color: var(--ac); color: var(--ac); }
+.todo-list { display: flex; flex-direction: column; gap: 4px; max-height: 220px; overflow-y: auto; }
+.todo-item { display: flex; flex-direction: column; gap: 2px; padding: 5px 7px; background: var(--s1); border-left: 2px solid var(--bd2); cursor: pointer; transition: border-color 0.14s; }
+.todo-item:hover { border-left-color: var(--ac2); }
+.todo-item-hdr { display: flex; align-items: center; gap: 6px; }
+.todo-tag { font-family: var(--mono); font-size: 8px; font-weight: bold; letter-spacing: 0.1em; padding: 1px 5px; border: 1px solid; flex-shrink: 0; }
+.todo-tag.TODO  { color: #f1c40f; border-color: #f1c40f; }
+.todo-tag.FIXME { color: #e74c3c; border-color: #e74c3c; }
+.todo-tag.HACK  { color: #e67e22; border-color: #e67e22; }
+.todo-tag.NOTE  { color: #3498db; border-color: #3498db; }
+.todo-tag.XXX   { color: #9b59b6; border-color: #9b59b6; }
+.todo-loc { font-family: var(--mono); font-size: 9px; color: var(--mu2); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.todo-txt { font-family: var(--mono); font-size: 9.5px; color: var(--tx); line-height: 1.4; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.todo-empty { font-family: var(--serif); font-size: 10px; font-style: italic; color: var(--mu); text-align: center; padding: 10px 0; }
+
+/* ═══════════════════════════════════
+   GIT QUICK ACTIONS
+   ═══════════════════════════════════ */
+.git-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.git-btn { padding: 7px 4px; background: rgba(0,196,168,0.06); border: 1px solid var(--bd2); color: var(--tx); font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.14s; text-align: center; }
+.git-btn:hover { border-color: var(--ac2); color: var(--ac); background: rgba(0,196,168,0.12); }
+.git-commit-row { display: flex; gap: 5px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--bd); }
+.git-commit-row input { flex: 1; }
+.git-commit-btn { padding: 4px 10px; background: rgba(0,196,168,0.08); border: 1px solid var(--ac2); color: var(--ac); font-family: var(--mono); font-size: 9px; letter-spacing: 0.08em; cursor: pointer; flex-shrink: 0; transition: all 0.14s; }
+.git-commit-btn:hover { background: rgba(0,196,168,0.18); }
+
+/* ═══════════════════════════════════
+   SNIPPET BANK
+   ═══════════════════════════════════ */
+.snip-list { display: flex; flex-direction: column; gap: 5px; }
+.snip-item { display: flex; align-items: center; gap: 6px; }
+.snip-lbl  { flex: 1; font-family: var(--serif); font-size: 11px; font-style: italic; color: var(--tx); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.snip-ins  { padding: 3px 8px; background: rgba(0,196,168,0.08); border: 1px solid var(--ac2); color: var(--ac); font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; cursor: pointer; transition: all 0.14s; }
+.snip-ins:hover { background: rgba(0,196,168,0.18); box-shadow: 0 0 6px rgba(0,196,168,0.3); }
+.snip-del  { padding: 3px 6px; background: none; border: 1px solid var(--bd2); color: var(--mu); font-size: 9px; cursor: pointer; transition: all 0.14s; }
+.snip-del:hover { border-color: #7a2020; color: #c05050; }
+.snip-add-wrap { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--bd); display: flex; flex-direction: column; gap: 5px; }
+.snip-add-body { width: 100%; min-height: 60px; resize: vertical; background: var(--s1); border: 1px solid var(--bd2); border-left: 2px solid var(--ac2); color: var(--tx); padding: 6px 8px; font-family: var(--mono); font-size: 10px; outline: none; box-sizing: border-box; }
+.snip-add-body:focus { border-color: var(--ac); border-left-color: var(--ac); }
+.snip-add-body::placeholder { color: var(--mu); }
+.snip-add-footer { display: flex; gap: 5px; }
+.snip-add-btn { padding: 4px 10px; background: rgba(0,196,168,0.08); border: 1px solid var(--ac2); color: var(--ac); font-family: var(--mono); font-size: 9px; cursor: pointer; flex-shrink: 0; transition: all 0.14s; }
+.snip-add-btn:hover { background: rgba(0,196,168,0.18); }
+.snip-empty { font-family: var(--serif); font-size: 10px; font-style: italic; color: var(--mu); text-align: center; padding: 6px 0; }
+
+/* ═══════════════════════════════════
+   TEXT TRANSFORM
+   ═══════════════════════════════════ */
+.tt-area { width: 100%; min-height: 70px; resize: vertical; background: var(--s1); border: 1px solid var(--bd2); border-left: 2px solid var(--ac2); color: var(--tx); padding: 7px 8px; font-family: var(--mono); font-size: 11px; outline: none; box-sizing: border-box; margin-bottom: 8px; }
+.tt-area:focus { border-color: var(--ac); border-left-color: var(--ac); }
+.tt-area::placeholder { color: var(--mu); }
+.tt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 8px; }
+.tt-btn { padding: 6px 4px; background: rgba(0,196,168,0.06); border: 1px solid var(--bd2); color: var(--tx); font-family: var(--mono); font-size: 8.5px; letter-spacing: 0.06em; cursor: pointer; transition: all 0.14s; text-align: center; }
+.tt-btn:hover { border-color: var(--ac2); color: var(--ac); background: rgba(0,196,168,0.12); }
+.tt-out-lbl { font-family: var(--serif); font-size: 10px; font-style: italic; color: var(--mu); margin-bottom: 4px; }
+.tt-copy-row { display: flex; gap: 5px; margin-top: 5px; }
+.tt-copy-btn { padding: 3px 10px; background: none; border: 1px solid var(--bd2); color: var(--mu); font-family: var(--mono); font-size: 8px; cursor: pointer; transition: all 0.14s; }
+.tt-copy-btn:hover { border-color: var(--ac2); color: var(--ac); }
+
+/* ═══════════════════════════════════
+   TIMESTAMP TOOLS
+   ═══════════════════════════════════ */
+.ts-now { font-family: var(--mono); font-size: 9.5px; color: var(--ac); letter-spacing: 0.06em; padding: 5px 0; margin-bottom: 8px; border-bottom: 1px solid var(--bd); line-height: 1.6; }
+.ts-conv-row { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; }
+.ts-conv-row input { flex: 1; }
+.ts-conv-btn { padding: 4px 9px; background: rgba(0,196,168,0.06); border: 1px solid var(--bd2); color: var(--tx); font-family: var(--mono); font-size: 9px; cursor: pointer; flex-shrink: 0; transition: all 0.14s; white-space: nowrap; }
+.ts-conv-btn:hover { border-color: var(--ac2); color: var(--ac); }
+.ts-result { font-family: var(--mono); font-size: 9.5px; color: var(--tx2); padding: 5px 7px; background: var(--s1); border-left: 2px solid var(--ac2); margin-bottom: 4px; word-break: break-all; min-height: 28px; line-height: 1.6; }
+.ts-copy-btn { padding: 2px 8px; background: none; border: 1px solid var(--bd2); color: var(--mu); font-family: var(--mono); font-size: 8px; cursor: pointer; margin-bottom: 10px; transition: all 0.14s; }
+.ts-copy-btn:hover { border-color: var(--ac2); color: var(--ac); }
+
+/* ═══════════════════════════════════
+   REGEX TESTER
+   ═══════════════════════════════════ */
+.rx-row { margin-bottom: 6px; }
+.rx-lbl { font-family: var(--serif); font-size: 10px; font-style: italic; color: var(--mu); margin-bottom: 3px; display: block; }
+.rx-pat-row { display: flex; gap: 5px; }
+.rx-pat-row input { flex: 1; }
+.rx-flags { width: 46px !important; flex: 0 0 46px !important; }
+.rx-test { width: 100%; min-height: 60px; resize: vertical; background: var(--s1); border: 1px solid var(--bd2); border-left: 2px solid var(--ac2); color: var(--tx); padding: 7px 8px; font-family: var(--mono); font-size: 11px; outline: none; box-sizing: border-box; }
+.rx-test:focus { border-color: var(--ac); border-left-color: var(--ac); }
+.rx-test::placeholder { color: var(--mu); }
+.rx-results { margin-top: 8px; padding: 6px 8px; background: var(--s1); border: 1px solid var(--bd2); min-height: 36px; font-family: var(--mono); font-size: 10px; color: var(--tx); line-height: 1.8; word-break: break-all; }
+.rx-match { background: rgba(0,196,168,0.15); border: 1px solid rgba(0,196,168,0.35); padding: 1px 4px; margin: 1px; display: inline-block; }
+.rx-no-match { color: var(--mu); font-style: italic; }
+.rx-error { color: #e74c3c; font-style: italic; }
+.rx-count { font-family: var(--serif); font-size: 9px; font-style: italic; color: var(--mu); margin-top: 5px; }
+
 /* Master section — top-level collapsible module */
 .msec { border-bottom: 1px solid var(--bd2); }
 
@@ -704,7 +804,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
   <div class="hdr-inner">
     <div class="logo">ARCHITECTUS</div>
     <div class="hdr-rule"><span class="hdr-gem">&#10022;</span></div>
-    <div class="logo-sub">Control Matrix</div>
+    <div class="logo-sub">Developer Toolkit</div>
   </div>
 </div>
 
@@ -1038,6 +1138,165 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
   </div>
 </div>
 
+<!-- PATH UTILS -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-path">
+      <i class="chev" id="ch-path">&#9658;</i>
+      <span class="msec-title">Path Utils</span>
+    </div>
+  </div>
+  <div class="msec-body clp" id="sec-path">
+    <div class="pu-grid">
+      <button class="pu-btn" id="puAbsolute">Copy Absolute</button>
+      <button class="pu-btn" id="puRelative">Copy Relative</button>
+      <button class="pu-btn" id="puFilename">Copy Filename</button>
+      <button class="pu-btn" id="puDir">Copy Directory</button>
+    </div>
+    <div class="pu-info" id="puInfo">Open a file to copy its path.</div>
+  </div>
+</div>
+
+<!-- TODO SCANNER -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-todo">
+      <i class="chev" id="ch-todo">&#9658;</i>
+      <span class="msec-title">TODO Scanner</span>
+    </div>
+  </div>
+  <div class="msec-body clp" id="sec-todo">
+    <button class="todo-scan-btn" id="todoScanBtn">Scan Workspace</button>
+    <div class="todo-list" id="todoList">
+      <div class="todo-empty">Click scan to find TODOs, FIXMEs &amp; HACKs.</div>
+    </div>
+  </div>
+</div>
+
+<!-- GIT QUICK ACTIONS -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-git">
+      <i class="chev" id="ch-git">&#9658;</i>
+      <span class="msec-title">Git Quick Actions</span>
+    </div>
+  </div>
+  <div class="msec-body clp" id="sec-git">
+    <div class="git-grid">
+      <button class="git-btn" id="gitStatus">git status</button>
+      <button class="git-btn" id="gitStageAll">git add -A</button>
+      <button class="git-btn" id="gitPull">git pull</button>
+      <button class="git-btn" id="gitPush">git push</button>
+    </div>
+    <div class="git-commit-row">
+      <input type="text" id="gitMsg" placeholder="Commit message…">
+      <button class="git-commit-btn" id="gitCommitBtn">Commit</button>
+    </div>
+  </div>
+</div>
+
+<!-- SNIPPET BANK -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-snip">
+      <i class="chev" id="ch-snip">&#9658;</i>
+      <span class="msec-title">Snippet Bank</span>
+    </div>
+  </div>
+  <div class="msec-body clp" id="sec-snip">
+    <div class="snip-list" id="snipList"></div>
+    <div class="snip-add-wrap">
+      <input type="text" id="snipLabel" placeholder="Label…">
+      <textarea class="snip-add-body" id="snipBody" placeholder="Snippet content…"></textarea>
+      <div class="snip-add-footer">
+        <button class="snip-add-btn" id="snipAddBtn">+ Save Snippet</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEXT TRANSFORM -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-tt">
+      <i class="chev" id="ch-tt">&#9658;</i>
+      <span class="msec-title">Text Transform</span>
+    </div>
+  </div>
+  <div class="msec-body clp" id="sec-tt">
+    <textarea class="tt-area" id="ttInput" placeholder="Paste or type text here…"></textarea>
+    <div class="tt-grid">
+      <button class="tt-btn" data-fn="upper">UPPER CASE</button>
+      <button class="tt-btn" data-fn="lower">lower case</button>
+      <button class="tt-btn" data-fn="title">Title Case</button>
+      <button class="tt-btn" data-fn="camel">camelCase</button>
+      <button class="tt-btn" data-fn="snake">snake_case</button>
+      <button class="tt-btn" data-fn="kebab">kebab-case</button>
+      <button class="tt-btn" data-fn="screaming">SCREAMING_SNAKE</button>
+      <button class="tt-btn" data-fn="trim">Trim Whitespace</button>
+      <button class="tt-btn" data-fn="urlencode">URL Encode</button>
+      <button class="tt-btn" data-fn="urldecode">URL Decode</button>
+      <button class="tt-btn" data-fn="b64enc">Base64 Encode</button>
+      <button class="tt-btn" data-fn="b64dec">Base64 Decode</button>
+    </div>
+    <div class="tt-out-lbl">Result</div>
+    <textarea class="tt-area" id="ttOutput" placeholder="Result appears here…" readonly style="border-left-color:var(--mu);opacity:0.85;min-height:50px;"></textarea>
+    <div class="tt-copy-row">
+      <button class="tt-copy-btn" id="ttCopyBtn">Copy Result</button>
+    </div>
+  </div>
+</div>
+
+<!-- TIMESTAMP TOOLS -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-ts">
+      <i class="chev" id="ch-ts">&#9658;</i>
+      <span class="msec-title">Timestamp Tools</span>
+    </div>
+  </div>
+  <div class="msec-body clp" id="sec-ts">
+    <div class="ts-now" id="tsNow">—</div>
+    <div class="ts-conv-row">
+      <input type="text" id="tsEpochIn" placeholder="Unix timestamp…">
+      <button class="ts-conv-btn" id="tsEpochConv">&#8594; ISO</button>
+    </div>
+    <div class="ts-result" id="tsEpochOut"></div>
+    <button class="ts-copy-btn" id="tsEpochCopy">Copy</button>
+    <div class="ts-conv-row">
+      <input type="text" id="tsIsoIn" placeholder="ISO date (2024-01-15T10:30:00Z)…">
+      <button class="ts-conv-btn" id="tsIsoConv">&#8594; Epoch</button>
+    </div>
+    <div class="ts-result" id="tsIsoOut"></div>
+    <button class="ts-copy-btn" id="tsIsoCopy">Copy</button>
+  </div>
+</div>
+
+<!-- REGEX TESTER -->
+<div class="msec">
+  <div class="msec-hdr">
+    <div class="msec-hdr-left" id="masterHdr-rx">
+      <i class="chev" id="ch-rx">&#9658;</i>
+      <span class="msec-title">Regex Tester</span>
+    </div>
+  </div>
+  <div class="msec-body clp" id="sec-rx">
+    <div class="rx-row">
+      <span class="rx-lbl">Pattern + Flags</span>
+      <div class="rx-pat-row">
+        <input type="text" id="rxPattern" placeholder="pattern">
+        <input type="text" id="rxFlags" class="rx-flags" placeholder="gi">
+      </div>
+    </div>
+    <div class="rx-row">
+      <span class="rx-lbl">Test String</span>
+      <textarea class="rx-test" id="rxTest" placeholder="Test string…"></textarea>
+    </div>
+    <div class="rx-results" id="rxResults"><span class="rx-no-match">Enter a pattern and test string.</span></div>
+    <div class="rx-count" id="rxCount"></div>
+  </div>
+</div>
+
 <script>
 var vscode = acquireVsCodeApi();
 var settings = ${s};
@@ -1212,13 +1471,14 @@ function save() {
 }
 
 window.addEventListener('message', function(e) {
-  if (e.data.type === 'settings') { settings = e.data.settings; refreshControls(); }
-  if (e.data.type === 'font-loaded') { applyFontSettings(e.data.font); }
-  if (e.data.type === 'focus-loaded') { applyFocusState(e.data.focus); }
+  if (e.data.type === 'settings')      { settings = e.data.settings; refreshControls(); }
+  if (e.data.type === 'font-loaded')   { applyFontSettings(e.data.font); }
+  if (e.data.type === 'focus-loaded')  { applyFocusState(e.data.focus); }
+  if (e.data.type === 'todo-results')  { renderTodos(e.data.results); }
 });
 
-/* ─── collapse helpers for new sections ─── */
-['qc','focus','font','scratch','ct'].forEach(function(key) {
+/* ─── collapse helpers for all sections ─── */
+['qc','focus','font','scratch','ct','path','todo','git','snip','tt','ts','rx'].forEach(function(key) {
   document.getElementById('masterHdr-' + key).addEventListener('click', function() {
     document.getElementById('sec-' + key).classList.toggle('clp');
     document.getElementById('ch-' + key).classList.toggle('o');
@@ -1385,6 +1645,203 @@ document.querySelectorAll('.ct-copy').forEach(function(btn) {
 });
 updateColor('#00d4b1');
 
+/* ─── PATH UTILS ─── */
+(function() {
+  var kindMap = { puAbsolute: 'absolute', puRelative: 'relative', puFilename: 'filename', puDir: 'dir' };
+  Object.keys(kindMap).forEach(function(id) {
+    document.getElementById(id).addEventListener('click', function() {
+      vscode.postMessage({ type: 'copy-path', kind: kindMap[id] });
+    });
+  });
+})();
+
+/* ─── TODO SCANNER ─── */
+document.getElementById('todoScanBtn').addEventListener('click', function() {
+  document.getElementById('todoList').innerHTML = '<div class="todo-empty">Scanning…</div>';
+  vscode.postMessage({ type: 'scan-todos' });
+});
+
+function renderTodos(results) {
+  var list = document.getElementById('todoList');
+  if (!results || !results.length) {
+    list.innerHTML = '<div class="todo-empty">No TODOs found — clean codebase!</div>';
+    return;
+  }
+  list.innerHTML = results.map(function(r) {
+    return '<div class="todo-item"><div class="todo-item-hdr">' +
+      '<span class="todo-tag ' + r.type + '">' + r.type + '</span>' +
+      '<span class="todo-loc">' + r.file + ':' + r.line + '</span>' +
+      '</div><div class="todo-txt">' + r.text.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div></div>';
+  }).join('');
+}
+
+/* ─── GIT QUICK ACTIONS ─── */
+[['gitStatus','git status'],['gitStageAll','git add -A'],['gitPull','git pull'],['gitPush','git push']].forEach(function(pair) {
+  document.getElementById(pair[0]).addEventListener('click', function() {
+    vscode.postMessage({ type: 'run-command', cmd: pair[1] });
+  });
+});
+document.getElementById('gitCommitBtn').addEventListener('click', function() {
+  var msg = document.getElementById('gitMsg').value.trim();
+  if (!msg) return;
+  vscode.postMessage({ type: 'run-command', cmd: 'git commit -m ' + JSON.stringify(msg) });
+  document.getElementById('gitMsg').value = '';
+});
+document.getElementById('gitMsg').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') document.getElementById('gitCommitBtn').click();
+});
+
+/* ─── SNIPPET BANK ─── */
+var snippets = ${JSON.stringify(extra.snippets)};
+
+function renderSnippets() {
+  var list = document.getElementById('snipList');
+  if (!snippets.length) {
+    list.innerHTML = '<div class="snip-empty">No snippets yet — save one below.</div>';
+    return;
+  }
+  list.innerHTML = snippets.map(function(s, i) {
+    return '<div class="snip-item">' +
+      '<span class="snip-lbl" title="' + s.text.replace(/"/g,'&quot;').slice(0,200) + '">' + s.label + '</span>' +
+      '<button class="snip-ins" data-i="' + i + '">Insert</button>' +
+      '<button class="snip-del" data-i="' + i + '">&#x2715;</button>' +
+    '</div>';
+  }).join('');
+  list.querySelectorAll('.snip-ins').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      vscode.postMessage({ type: 'insert-snippet', text: snippets[+btn.dataset.i].text });
+    });
+  });
+  list.querySelectorAll('.snip-del').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      snippets.splice(+btn.dataset.i, 1);
+      vscode.postMessage({ type: 'save-snippets', snippets: snippets });
+      renderSnippets();
+    });
+  });
+}
+renderSnippets();
+
+document.getElementById('snipAddBtn').addEventListener('click', function() {
+  var lbl = document.getElementById('snipLabel').value.trim();
+  var txt = document.getElementById('snipBody').value;
+  if (!txt.trim()) return;
+  snippets.push({ label: lbl || txt.slice(0, 32).trim() + '…', text: txt });
+  vscode.postMessage({ type: 'save-snippets', snippets: snippets });
+  document.getElementById('snipLabel').value = '';
+  document.getElementById('snipBody').value = '';
+  renderSnippets();
+});
+
+/* ─── TEXT TRANSFORM ─── */
+(function() {
+  function toTitleCase(s) { return s.replace(/\w\S*/g, function(t){ return t.charAt(0).toUpperCase()+t.slice(1).toLowerCase(); }); }
+  function toCamel(s) { return s.trim().replace(/[\s\-_]+(.)/g,function(_,c){ return c.toUpperCase(); }).replace(/^./,function(c){ return c.toLowerCase(); }); }
+  function toSnake(s) { return s.trim().replace(/[\s\-]+/g,'_').replace(/([a-z])([A-Z])/g,'$1_$2').toLowerCase(); }
+  function toKebab(s) { return s.trim().replace(/[\s_]+/g,'-').replace(/([a-z])([A-Z])/g,'$1-$2').toLowerCase(); }
+
+  document.querySelectorAll('.tt-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var inp = document.getElementById('ttInput').value;
+      var out;
+      switch(btn.dataset.fn) {
+        case 'upper':     out = inp.toUpperCase(); break;
+        case 'lower':     out = inp.toLowerCase(); break;
+        case 'title':     out = toTitleCase(inp); break;
+        case 'camel':     out = toCamel(inp); break;
+        case 'snake':     out = toSnake(inp); break;
+        case 'kebab':     out = toKebab(inp); break;
+        case 'screaming': out = toSnake(inp).toUpperCase(); break;
+        case 'trim':      out = inp.trim().replace(/[ \t]+/g,' '); break;
+        case 'urlencode': out = encodeURIComponent(inp); break;
+        case 'urldecode': try { out = decodeURIComponent(inp); } catch(e) { out = 'Invalid encoded string'; } break;
+        case 'b64enc':    try { out = btoa(unescape(encodeURIComponent(inp))); } catch(e) { out = 'Encode error'; } break;
+        case 'b64dec':    try { out = decodeURIComponent(escape(atob(inp))); } catch(e) { out = 'Invalid Base64'; } break;
+        default:          out = inp;
+      }
+      document.getElementById('ttOutput').value = out;
+    });
+  });
+
+  document.getElementById('ttCopyBtn').addEventListener('click', function() {
+    var text = document.getElementById('ttOutput').value;
+    if (text) vscode.postMessage({ type: 'copy-color', text: text });
+  });
+})();
+
+/* ─── TIMESTAMP TOOLS ─── */
+(function() {
+  function updateNow() {
+    var now = Date.now();
+    document.getElementById('tsNow').textContent =
+      'Epoch: ' + Math.floor(now/1000) + '\n' + new Date().toISOString();
+  }
+  updateNow();
+  setInterval(updateNow, 1000);
+
+  document.getElementById('tsEpochConv').addEventListener('click', function() {
+    var v = document.getElementById('tsEpochIn').value.trim();
+    if (!v) return;
+    var ms = v.length <= 10 ? +v * 1000 : +v;
+    var d = new Date(ms);
+    document.getElementById('tsEpochOut').textContent = isNaN(d.getTime()) ? 'Invalid timestamp' : d.toISOString() + '\n' + d.toLocaleString();
+  });
+
+  document.getElementById('tsIsoConv').addEventListener('click', function() {
+    var v = document.getElementById('tsIsoIn').value.trim();
+    if (!v) return;
+    var d = new Date(v);
+    document.getElementById('tsIsoOut').textContent = isNaN(d.getTime()) ? 'Invalid date string' : Math.floor(d.getTime()/1000) + ' (s)\n' + d.getTime() + ' (ms)';
+  });
+
+  document.getElementById('tsEpochCopy').addEventListener('click', function() {
+    var t = document.getElementById('tsEpochOut').textContent;
+    if (t) vscode.postMessage({ type: 'copy-color', text: t });
+  });
+  document.getElementById('tsIsoCopy').addEventListener('click', function() {
+    var t = document.getElementById('tsIsoOut').textContent;
+    if (t) vscode.postMessage({ type: 'copy-color', text: t });
+  });
+})();
+
+/* ─── REGEX TESTER ─── */
+(function() {
+  function runRegex() {
+    var rawPat = document.getElementById('rxPattern').value;
+    var flags  = document.getElementById('rxFlags').value.trim() || 'g';
+    var test   = document.getElementById('rxTest').value;
+    var results = document.getElementById('rxResults');
+    var count   = document.getElementById('rxCount');
+    if (!rawPat || !test) {
+      results.innerHTML = '<span class="rx-no-match">Enter a pattern and test string.</span>';
+      count.textContent = '';
+      return;
+    }
+    try {
+      var pat = rawPat.replace(/^\/(.*)\/[gimsuy]*$/, '$1');
+      var gFlags = flags.includes('g') ? flags : flags + 'g';
+      var re = new RegExp(pat, gFlags);
+      var matches = test.match(re);
+      if (!matches) {
+        results.innerHTML = '<span class="rx-no-match">No matches.</span>';
+        count.textContent = '';
+      } else {
+        results.innerHTML = matches.map(function(m) {
+          return '<span class="rx-match">' + m.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</span>';
+        }).join(' ');
+        count.textContent = matches.length + ' match' + (matches.length !== 1 ? 'es' : '');
+      }
+    } catch(e) {
+      results.innerHTML = '<span class="rx-error">' + e.message + '</span>';
+      count.textContent = '';
+    }
+  }
+
+  document.getElementById('rxPattern').addEventListener('input', runRegex);
+  document.getElementById('rxFlags').addEventListener('input', runRegex);
+  document.getElementById('rxTest').addEventListener('input', runRegex);
+})();
+
 init();
 </script>
 </body>
@@ -1419,6 +1876,10 @@ class ArchitectusProvider {
         case 'request-font':   this._sendFontSettings(); break;
         case 'focus-toggle':   this._focusToggle(msg.key, msg.value); break;
         case 'copy-color':     vscode.env.clipboard.writeText(msg.text); break;
+        case 'copy-path':      this._copyPath(msg.kind); break;
+        case 'scan-todos':     this._scanTodos(); break;
+        case 'save-snippets':  this._ctx.globalState.update('architectusSnippets', msg.snippets); break;
+        case 'insert-snippet': this._insertSnippet(msg.text); break;
       }
     });
   }
@@ -1432,6 +1893,7 @@ class ArchitectusProvider {
         { label: 'Git status',   cmd: 'git status'   },
       ]),
       scratchText: this._ctx.workspaceState.get('architectusScratch', ''),
+      snippets: this._ctx.globalState.get('architectusSnippets', []),
       fontSettings: {
         fontFamily:    cfg('editor').get('fontFamily',    ''),
         fontSize:      cfg('editor').get('fontSize',      14),
@@ -1525,6 +1987,60 @@ class ArchitectusProvider {
       const [section, cfgKey] = map[key];
       vscode.workspace.getConfiguration(section).update(cfgKey, value, vscode.ConfigurationTarget.Global);
     }
+  }
+
+  _copyPath(kind) {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) { vscode.window.showWarningMessage('Architectus: No active file.'); return; }
+    const absPath = editor.document.uri.fsPath;
+    const workFolders = vscode.workspace.workspaceFolders;
+    const root = workFolders && workFolders[0] ? workFolders[0].uri.fsPath : '';
+    let text;
+    if (kind === 'absolute')  text = absPath;
+    else if (kind === 'relative') text = root ? path.relative(root, absPath) : absPath;
+    else if (kind === 'filename') text = path.basename(absPath);
+    else if (kind === 'dir')      text = path.dirname(absPath);
+    vscode.env.clipboard.writeText(text);
+    vscode.window.showInformationMessage('Architectus: Copied — ' + text);
+  }
+
+  async _scanTodos() {
+    if (!this._view) return;
+    const results = [];
+    try {
+      const files = await vscode.workspace.findFiles(
+        '{**/*.js,**/*.ts,**/*.jsx,**/*.tsx,**/*.py,**/*.go,**/*.java,**/*.cs,**/*.cpp,**/*.c,**/*.md,**/*.rs,**/*.rb,**/*.php,**/*.swift}',
+        '{**/node_modules/**,**/.git/**,**/dist/**,**/build/**,**/.next/**,**/out/**}',
+        500
+      );
+      const regex = /\b(TODO|FIXME|HACK|XXX|NOTE)\b[:\s]*(.*)/i;
+      const workRoot = vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders[0]
+        ? vscode.workspace.workspaceFolders[0].uri.fsPath : '';
+      for (const file of files.slice(0, 300)) {
+        let content;
+        try { content = fs.readFileSync(file.fsPath, 'utf8'); } catch(e) { continue; }
+        content.split('\n').forEach((line, i) => {
+          const m = line.match(regex);
+          if (m) results.push({
+            file: workRoot ? path.relative(workRoot, file.fsPath) : path.basename(file.fsPath),
+            line: i + 1,
+            type: m[1].toUpperCase(),
+            text: m[2].trim().slice(0, 120),
+          });
+        });
+      }
+    } catch(e) {}
+    this._view.webview.postMessage({ type: 'todo-results', results: results.slice(0, 300) });
+  }
+
+  _insertSnippet(text) {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor) { vscode.window.showWarningMessage('Architectus: No active editor.'); return; }
+    editor.edit(editBuilder => {
+      const sel = editor.selection;
+      if (sel.isEmpty) editBuilder.insert(sel.active, text);
+      else editBuilder.replace(sel, text);
+    });
   }
 
   _reload() {
