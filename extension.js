@@ -1298,6 +1298,36 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 </div>
 
 <script>
+/* ─── COLLAPSE — runs first, isolated from everything else ─── */
+(function() {
+  try {
+    ['qc','focus','font','scratch','ct','path','todo','git','snip','tt','ts','rx'].forEach(function(key) {
+      var hdr = document.getElementById('masterHdr-' + key);
+      if (!hdr) return;
+      hdr.addEventListener('click', function() {
+        var body = document.getElementById('sec-' + key);
+        var chev = document.getElementById('ch-' + key);
+        if (body) body.classList.toggle('clp');
+        if (chev) chev.classList.toggle('o');
+      });
+    });
+    var m = document.getElementById('masterHdr');
+    if (m) m.addEventListener('click', function() {
+      document.getElementById('sec-master').classList.toggle('clp');
+      document.getElementById('ch-master').classList.toggle('o');
+    });
+    document.querySelectorAll('.sec-hdr').forEach(function(hdr) {
+      hdr.addEventListener('click', function() {
+        var sec = hdr.getAttribute('data-sec');
+        var body = document.getElementById('sec-' + sec);
+        var chev = document.getElementById('ch-' + sec);
+        if (body) body.classList.toggle('clp');
+        if (chev) chev.classList.toggle('o');
+      });
+    });
+  } catch(e) {}
+})();
+
 var vscode = acquireVsCodeApi();
 var settings = ${s};
 
@@ -1437,18 +1467,6 @@ function init() {
     });
   });
 
-  document.querySelectorAll('.sec-hdr').forEach(function(hdr) {
-    hdr.addEventListener('click', function() {
-      var sec = hdr.getAttribute('data-sec');
-      document.getElementById('sec-' + sec).classList.toggle('clp');
-      document.getElementById('ch-' + sec).classList.toggle('o');
-    });
-  });
-
-  document.getElementById('masterHdr').addEventListener('click', function() {
-    document.getElementById('sec-master').classList.toggle('clp');
-    document.getElementById('ch-master').classList.toggle('o');
-  });
   document.getElementById('masterEnabled').addEventListener('change', function(e) {
     vscode.postMessage({ type: 'master-toggle', value: e.target.checked });
   });
@@ -1477,19 +1495,6 @@ window.addEventListener('message', function(e) {
   if (e.data.type === 'todo-results')  { renderTodos(e.data.results); }
 });
 
-/* ─── collapse helpers for all outer sections ─── */
-['qc','focus','font','scratch','ct','path','todo','git','snip','tt','ts','rx'].forEach(function(key) {
-  var hdr = document.getElementById('masterHdr-' + key);
-  if (!hdr) return;
-  hdr.addEventListener('click', function() {
-    var body = document.getElementById('sec-' + key);
-    var chev = document.getElementById('ch-' + key);
-    if (body) body.classList.toggle('clp');
-    if (chev) chev.classList.toggle('o');
-  });
-});
-
-/* ─── core init — must run before any section JS that might throw ─── */
 init();
 
 /* ─── QUICK COMMANDS ─── */
