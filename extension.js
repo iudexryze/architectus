@@ -1489,6 +1489,9 @@ window.addEventListener('message', function(e) {
   });
 });
 
+/* ─── core init — must run before any section JS that might throw ─── */
+init();
+
 /* ─── QUICK COMMANDS ─── */
 var quickCommands = ${JSON.stringify(extra.quickCommands)};
 
@@ -1648,8 +1651,6 @@ document.querySelectorAll('.ct-copy').forEach(function(btn) {
   });
 });
 updateColor('#00d4b1');
-
-init();
 
 /* ─── PATH UTILS ─── */
 try { (function() {
