@@ -1477,11 +1477,15 @@ window.addEventListener('message', function(e) {
   if (e.data.type === 'todo-results')  { renderTodos(e.data.results); }
 });
 
-/* ─── collapse helpers for all sections ─── */
+/* ─── collapse helpers for all outer sections ─── */
 ['qc','focus','font','scratch','ct','path','todo','git','snip','tt','ts','rx'].forEach(function(key) {
-  document.getElementById('masterHdr-' + key).addEventListener('click', function() {
-    document.getElementById('sec-' + key).classList.toggle('clp');
-    document.getElementById('ch-' + key).classList.toggle('o');
+  var hdr = document.getElementById('masterHdr-' + key);
+  if (!hdr) return;
+  hdr.addEventListener('click', function() {
+    var body = document.getElementById('sec-' + key);
+    var chev = document.getElementById('ch-' + key);
+    if (body) body.classList.toggle('clp');
+    if (chev) chev.classList.toggle('o');
   });
 });
 
@@ -1645,21 +1649,25 @@ document.querySelectorAll('.ct-copy').forEach(function(btn) {
 });
 updateColor('#00d4b1');
 
+init();
+
 /* ─── PATH UTILS ─── */
-(function() {
+try { (function() {
   var kindMap = { puAbsolute: 'absolute', puRelative: 'relative', puFilename: 'filename', puDir: 'dir' };
   Object.keys(kindMap).forEach(function(id) {
-    document.getElementById(id).addEventListener('click', function() {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('click', function() {
       vscode.postMessage({ type: 'copy-path', kind: kindMap[id] });
     });
   });
-})();
+})(); } catch(e) {}
 
 /* ─── TODO SCANNER ─── */
-document.getElementById('todoScanBtn').addEventListener('click', function() {
+try { document.getElementById('todoScanBtn').addEventListener('click', function() {
   document.getElementById('todoList').innerHTML = '<div class="todo-empty">Scanning…</div>';
   vscode.postMessage({ type: 'scan-todos' });
-});
+}); } catch(e) {}
 
 function renderTodos(results) {
   var list = document.getElementById('todoList');
@@ -1676,7 +1684,7 @@ function renderTodos(results) {
 }
 
 /* ─── GIT QUICK ACTIONS ─── */
-[['gitStatus','git status'],['gitStageAll','git add -A'],['gitPull','git pull'],['gitPush','git push']].forEach(function(pair) {
+try { [['gitStatus','git status'],['gitStageAll','git add -A'],['gitPull','git pull'],['gitPush','git push']].forEach(function(pair) {
   document.getElementById(pair[0]).addEventListener('click', function() {
     vscode.postMessage({ type: 'run-command', cmd: pair[1] });
   });
@@ -1689,40 +1697,43 @@ document.getElementById('gitCommitBtn').addEventListener('click', function() {
 });
 document.getElementById('gitMsg').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') document.getElementById('gitCommitBtn').click();
-});
+}); } catch(e) {}
 
 /* ─── SNIPPET BANK ─── */
 var snippets = ${JSON.stringify(extra.snippets)};
 
 function renderSnippets() {
-  var list = document.getElementById('snipList');
-  if (!snippets.length) {
-    list.innerHTML = '<div class="snip-empty">No snippets yet — save one below.</div>';
-    return;
-  }
-  list.innerHTML = snippets.map(function(s, i) {
-    return '<div class="snip-item">' +
-      '<span class="snip-lbl" title="' + s.text.replace(/"/g,'&quot;').slice(0,200) + '">' + s.label + '</span>' +
-      '<button class="snip-ins" data-i="' + i + '">Insert</button>' +
-      '<button class="snip-del" data-i="' + i + '">&#x2715;</button>' +
-    '</div>';
-  }).join('');
-  list.querySelectorAll('.snip-ins').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      vscode.postMessage({ type: 'insert-snippet', text: snippets[+btn.dataset.i].text });
+  try {
+    var list = document.getElementById('snipList');
+    if (!list) return;
+    if (!snippets.length) {
+      list.innerHTML = '<div class="snip-empty">No snippets yet — save one below.</div>';
+      return;
+    }
+    list.innerHTML = snippets.map(function(s, i) {
+      return '<div class="snip-item">' +
+        '<span class="snip-lbl" title="' + s.text.replace(/"/g,'&quot;').slice(0,200) + '">' + s.label + '</span>' +
+        '<button class="snip-ins" data-i="' + i + '">Insert</button>' +
+        '<button class="snip-del" data-i="' + i + '">&#x2715;</button>' +
+      '</div>';
+    }).join('');
+    list.querySelectorAll('.snip-ins').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        vscode.postMessage({ type: 'insert-snippet', text: snippets[+btn.dataset.i].text });
+      });
     });
-  });
-  list.querySelectorAll('.snip-del').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      snippets.splice(+btn.dataset.i, 1);
-      vscode.postMessage({ type: 'save-snippets', snippets: snippets });
-      renderSnippets();
+    list.querySelectorAll('.snip-del').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        snippets.splice(+btn.dataset.i, 1);
+        vscode.postMessage({ type: 'save-snippets', snippets: snippets });
+        renderSnippets();
+      });
     });
-  });
+  } catch(e) {}
 }
-renderSnippets();
+try { renderSnippets(); } catch(e) {}
 
-document.getElementById('snipAddBtn').addEventListener('click', function() {
+try { document.getElementById('snipAddBtn').addEventListener('click', function() {
   var lbl = document.getElementById('snipLabel').value.trim();
   var txt = document.getElementById('snipBody').value;
   if (!txt.trim()) return;
@@ -1731,10 +1742,10 @@ document.getElementById('snipAddBtn').addEventListener('click', function() {
   document.getElementById('snipLabel').value = '';
   document.getElementById('snipBody').value = '';
   renderSnippets();
-});
+}); } catch(e) {}
 
 /* ─── TEXT TRANSFORM ─── */
-(function() {
+try { (function() {
   function toTitleCase(s) { return s.replace(/\w\S*/g, function(t){ return t.charAt(0).toUpperCase()+t.slice(1).toLowerCase(); }); }
   function toCamel(s) { return s.trim().replace(/[\s\-_]+(.)/g,function(_,c){ return c.toUpperCase(); }).replace(/^./,function(c){ return c.toLowerCase(); }); }
   function toSnake(s) { return s.trim().replace(/[\s\-]+/g,'_').replace(/([a-z])([A-Z])/g,'$1_$2').toLowerCase(); }
@@ -1767,10 +1778,10 @@ document.getElementById('snipAddBtn').addEventListener('click', function() {
     var text = document.getElementById('ttOutput').value;
     if (text) vscode.postMessage({ type: 'copy-color', text: text });
   });
-})();
+})(); } catch(e) {}
 
 /* ─── TIMESTAMP TOOLS ─── */
-(function() {
+try { (function() {
   function updateNow() {
     var now = Date.now();
     document.getElementById('tsNow').textContent =
@@ -1802,10 +1813,10 @@ document.getElementById('snipAddBtn').addEventListener('click', function() {
     var t = document.getElementById('tsIsoOut').textContent;
     if (t) vscode.postMessage({ type: 'copy-color', text: t });
   });
-})();
+})(); } catch(e) {}
 
 /* ─── REGEX TESTER ─── */
-(function() {
+try { (function() {
   function runRegex() {
     var rawPat = document.getElementById('rxPattern').value;
     var flags  = document.getElementById('rxFlags').value.trim() || 'g';
@@ -1840,9 +1851,7 @@ document.getElementById('snipAddBtn').addEventListener('click', function() {
   document.getElementById('rxPattern').addEventListener('input', runRegex);
   document.getElementById('rxFlags').addEventListener('input', runRegex);
   document.getElementById('rxTest').addEventListener('input', runRegex);
-})();
-
-init();
+})(); } catch(e) {}
 </script>
 </body>
 </html>`;
