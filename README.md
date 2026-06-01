@@ -22,7 +22,7 @@ Control panel sidebar for VS Code — glow animations, quick commands, focus mod
 
 ## Panel Sections
 
-### Action buttons
+### Action Buttons
 
 | Button | What it does |
 |---|---|
