@@ -1,2 +1,4 @@
 .vscodeignore
 *.vsix
+*.sh
+.gitignore

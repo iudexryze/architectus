@@ -1,9 +1,9 @@
 {
-  "name": "ryze-controls",
+  "name": "architectus",
   "displayName": "Architectus",
   "description": "Glow & animation control panel for VS Code",
-  "version": "1.0.0",
-  "publisher": "varun",
+  "version": "2.1.0",
+  "publisher": "IudexRyze",
   "license": "MIT",
   "engines": { "vscode": "^1.70.0" },
   "categories": ["Themes", "Other"],
@@ -14,30 +14,21 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "ryze-sidebar",
+          "id": "architectus-sidebar",
           "title": "Architectus",
           "icon": "./icon.svg"
         }
       ]
     },
     "views": {
-      "ryze-sidebar": [
+      "architectus-sidebar": [
         {
           "type": "webview",
-          "id": "ryzeControls.panel",
+          "id": "architectus.panel",
           "name": "Architectus Console"
         }
       ]
     },
-    "commands": [
-      {
-        "command": "ryzeControls.enable",
-        "title": "Architectus: Enable CSS"
-      },
-      {
-        "command": "ryzeControls.disable",
-        "title": "Architectus: Disable CSS"
-      }
-    ]
+    "commands": []
   }
 }
