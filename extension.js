@@ -844,58 +844,58 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
     <div class="row">
       <span class="lbl">Enable</span>
       <div class="inp" style="display:flex;align-items:center;gap:8px;">
-        <label class="tog"><input type="checkbox" id="ryzeEnabled"><span class="trk"></span></label>
+        <label class="tog"><input type="checkbox" id="ryzeEnabled" ${settings.ryzeEnabled !== false ? 'checked' : ''}><span class="trk"></span></label>
         <span class="tlbl" onclick="document.getElementById('ryzeEnabled').click()">Show background</span>
       </div>
     </div>
     <div class="row">
       <span class="lbl">Front text</span>
-      <div class="inp"><input type="text" id="ryzeText" maxlength="20" placeholder="IUDEX"></div>
+      <div class="inp"><input type="text" id="ryzeText" maxlength="20" placeholder="IUDEX" value="${settings.ryzeText || ''}"></div>
     </div>
     <div class="row">
       <span class="lbl">Back text</span>
-      <div class="inp"><input type="text" id="ryzeBackText" maxlength="20" placeholder="RYZE"></div>
+      <div class="inp"><input type="text" id="ryzeBackText" maxlength="20" placeholder="RYZE" value="${settings.ryzeBackText || ''}"></div>
     </div>
     <div class="row">
       <span class="lbl">Opacity</span>
       <div class="inp sl-row">
-        <input type="range" id="ryzeOpacity" min="5" max="100" step="5">
-        <span class="sl-val" id="ryzeOpacityVal">100%</span>
+        <input type="range" id="ryzeOpacity" min="5" max="100" step="5" value="${settings.ryzeOpacity}">
+        <span class="sl-val" id="ryzeOpacityVal">${settings.ryzeOpacity}%</span>
       </div>
     </div>
     <div class="row">
       <span class="lbl">Speed</span>
       <div class="inp sl-row">
-        <input type="range" id="ryzeSpeed" min="1" max="60" step="1">
-        <span class="sl-val" id="ryzeSpeedVal">18s</span>
+        <input type="range" id="ryzeSpeed" min="1" max="60" step="1" value="${settings.ryzeSpeed}">
+        <span class="sl-val" id="ryzeSpeedVal">${settings.ryzeSpeed}s</span>
       </div>
     </div>
     <div class="row">
       <span class="lbl">Size</span>
       <div class="inp sl-row">
-        <input type="range" id="ryzeSize" min="5" max="30" step="1">
-        <span class="sl-val" id="ryzeSizeVal">14vw</span>
+        <input type="range" id="ryzeSize" min="5" max="30" step="1" value="${settings.ryzeSize}">
+        <span class="sl-val" id="ryzeSizeVal">${settings.ryzeSize}vw</span>
       </div>
     </div>
     <div class="row">
       <span class="lbl">Glow color</span>
       <div class="inp col-row">
-        <input type="color" id="ryzeGlowColor">
-        <input type="text" class="hex" id="ryzeGlowColorHex" maxlength="7">
+        <input type="color" id="ryzeGlowColor" value="${settings.ryzeGlowColor}">
+        <input type="text" class="hex" id="ryzeGlowColorHex" maxlength="7" value="${settings.ryzeGlowColor}">
       </div>
     </div>
     <div class="row">
       <span class="lbl">Extrude</span>
       <div class="inp col-row">
-        <input type="color" id="ryzeExtrudeColor">
-        <input type="text" class="hex" id="ryzeExtrudeColorHex" maxlength="7">
+        <input type="color" id="ryzeExtrudeColor" value="${settings.ryzeExtrudeColor}">
+        <input type="text" class="hex" id="ryzeExtrudeColorHex" maxlength="7" value="${settings.ryzeExtrudeColor}">
       </div>
     </div>
     <div class="row">
       <span class="lbl">Glow intens.</span>
       <div class="inp sl-row">
-        <input type="range" id="ryzeGlowIntensity" min="0" max="50" step="1">
-        <span class="sl-val" id="ryzeGlowIntensityVal">18%</span>
+        <input type="range" id="ryzeGlowIntensity" min="0" max="50" step="1" value="${settings.ryzeGlowIntensity}">
+        <span class="sl-val" id="ryzeGlowIntensityVal">${settings.ryzeGlowIntensity}%</span>
       </div>
     </div>
   </div>
@@ -911,29 +911,29 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
     <div class="row">
       <span class="lbl">Enable</span>
       <div class="inp" style="display:flex;align-items:center;gap:8px;">
-        <label class="tog"><input type="checkbox" id="ryzeGlitchEnabled"><span class="trk"></span></label>
+        <label class="tog"><input type="checkbox" id="ryzeGlitchEnabled" ${settings.ryzeGlitchEnabled !== false ? 'checked' : ''}><span class="trk"></span></label>
         <span class="tlbl" onclick="document.getElementById('ryzeGlitchEnabled').click()">Text &amp; BG glitch</span>
       </div>
     </div>
     <div class="row">
       <span class="lbl">Type glitch</span>
       <div class="inp" style="display:flex;align-items:center;gap:8px;">
-        <label class="tog"><input type="checkbox" id="ryzeTypingGlitch"><span class="trk"></span></label>
+        <label class="tog"><input type="checkbox" id="ryzeTypingGlitch" ${settings.ryzeTypingGlitch !== false ? 'checked' : ''}><span class="trk"></span></label>
         <span class="tlbl" onclick="document.getElementById('ryzeTypingGlitch').click()">Glitch on keypress</span>
       </div>
     </div>
     <div class="row">
       <span class="lbl">Intensity</span>
       <div class="inp sl-row">
-        <input type="range" id="ryzeGlitchIntensity" min="0" max="100" step="5">
-        <span class="sl-val" id="ryzeGlitchIntensityVal">70%</span>
+        <input type="range" id="ryzeGlitchIntensity" min="0" max="100" step="5" value="${settings.ryzeGlitchIntensity}">
+        <span class="sl-val" id="ryzeGlitchIntensityVal">${settings.ryzeGlitchIntensity}%</span>
       </div>
     </div>
     <div class="row">
       <span class="lbl">Frequency</span>
       <div class="inp sl-row">
-        <input type="range" id="ryzeGlitchFrequency" min="2" max="30" step="1">
-        <span class="sl-val" id="ryzeGlitchFrequencyVal">7s</span>
+        <input type="range" id="ryzeGlitchFrequency" min="2" max="30" step="1" value="${settings.ryzeGlitchFrequency}">
+        <span class="sl-val" id="ryzeGlitchFrequencyVal">${settings.ryzeGlitchFrequency}s</span>
       </div>
     </div>
   </div>
@@ -949,42 +949,42 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
     <div class="row">
       <span class="lbl">Glow</span>
       <div class="inp" style="display:flex;align-items:center;gap:8px;">
-        <label class="tog"><input type="checkbox" id="syntaxGlowEnabled"><span class="trk"></span></label>
+        <label class="tog"><input type="checkbox" id="syntaxGlowEnabled" ${settings.syntaxGlowEnabled !== false ? 'checked' : ''}><span class="trk"></span></label>
         <span class="tlbl" onclick="document.getElementById('syntaxGlowEnabled').click()">Enable text glow</span>
       </div>
     </div>
     <div class="grid2">
       <div class="col-item">
         <span class="col-item-lbl">Strings</span>
-        <div class="col-row"><input type="color" id="colorStrings"><input type="text" class="hex" id="colorStringsHex" maxlength="7"></div>
+        <div class="col-row"><input type="color" id="colorStrings" value="${settings.colorStrings}"><input type="text" class="hex" id="colorStringsHex" maxlength="7" value="${settings.colorStrings}"></div>
       </div>
       <div class="col-item">
         <span class="col-item-lbl">Types</span>
-        <div class="col-row"><input type="color" id="colorTypes"><input type="text" class="hex" id="colorTypesHex" maxlength="7"></div>
+        <div class="col-row"><input type="color" id="colorTypes" value="${settings.colorTypes}"><input type="text" class="hex" id="colorTypesHex" maxlength="7" value="${settings.colorTypes}"></div>
       </div>
       <div class="col-item">
         <span class="col-item-lbl">Keywords</span>
-        <div class="col-row"><input type="color" id="colorKeywords"><input type="text" class="hex" id="colorKeywordsHex" maxlength="7"></div>
+        <div class="col-row"><input type="color" id="colorKeywords" value="${settings.colorKeywords}"><input type="text" class="hex" id="colorKeywordsHex" maxlength="7" value="${settings.colorKeywords}"></div>
       </div>
       <div class="col-item">
         <span class="col-item-lbl">Numbers</span>
-        <div class="col-row"><input type="color" id="colorNumbers"><input type="text" class="hex" id="colorNumbersHex" maxlength="7"></div>
+        <div class="col-row"><input type="color" id="colorNumbers" value="${settings.colorNumbers}"><input type="text" class="hex" id="colorNumbersHex" maxlength="7" value="${settings.colorNumbers}"></div>
       </div>
       <div class="col-item">
         <span class="col-item-lbl">Functions</span>
-        <div class="col-row"><input type="color" id="colorFunctions"><input type="text" class="hex" id="colorFunctionsHex" maxlength="7"></div>
+        <div class="col-row"><input type="color" id="colorFunctions" value="${settings.colorFunctions}"><input type="text" class="hex" id="colorFunctionsHex" maxlength="7" value="${settings.colorFunctions}"></div>
       </div>
       <div class="col-item">
         <span class="col-item-lbl">Variables</span>
-        <div class="col-row"><input type="color" id="colorVariables"><input type="text" class="hex" id="colorVariablesHex" maxlength="7"></div>
+        <div class="col-row"><input type="color" id="colorVariables" value="${settings.colorVariables}"><input type="text" class="hex" id="colorVariablesHex" maxlength="7" value="${settings.colorVariables}"></div>
       </div>
       <div class="col-item">
         <span class="col-item-lbl">Errors</span>
-        <div class="col-row"><input type="color" id="colorErrors"><input type="text" class="hex" id="colorErrorsHex" maxlength="7"></div>
+        <div class="col-row"><input type="color" id="colorErrors" value="${settings.colorErrors}"><input type="text" class="hex" id="colorErrorsHex" maxlength="7" value="${settings.colorErrors}"></div>
       </div>
       <div class="col-item">
         <span class="col-item-lbl">Comments</span>
-        <div class="col-row"><input type="color" id="colorComments"><input type="text" class="hex" id="colorCommentsHex" maxlength="7"></div>
+        <div class="col-row"><input type="color" id="colorComments" value="${settings.colorComments}"><input type="text" class="hex" id="colorCommentsHex" maxlength="7" value="${settings.colorComments}"></div>
       </div>
     </div>
   </div>
@@ -999,17 +999,17 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
   <div class="sec-body clp" id="sec-cursor">
     <div class="row">
       <span class="lbl">Primary</span>
-      <div class="inp col-row"><input type="color" id="cursorColor1"><input type="text" class="hex" id="cursorColor1Hex" maxlength="7"></div>
+      <div class="inp col-row"><input type="color" id="cursorColor1" value="${settings.cursorColor1}"><input type="text" class="hex" id="cursorColor1Hex" maxlength="7" value="${settings.cursorColor1}"></div>
     </div>
     <div class="row">
       <span class="lbl">Secondary</span>
-      <div class="inp col-row"><input type="color" id="cursorColor2"><input type="text" class="hex" id="cursorColor2Hex" maxlength="7"></div>
+      <div class="inp col-row"><input type="color" id="cursorColor2" value="${settings.cursorColor2}"><input type="text" class="hex" id="cursorColor2Hex" maxlength="7" value="${settings.cursorColor2}"></div>
     </div>
     <div class="row">
       <span class="lbl">Pulse speed</span>
       <div class="inp sl-row">
-        <input type="range" id="cursorPulseSpeed" min="5" max="30" step="1">
-        <span class="sl-val" id="cursorPulseSpeedVal">1.4s</span>
+        <input type="range" id="cursorPulseSpeed" min="5" max="30" step="1" value="${settings.cursorPulseSpeed}">
+        <span class="sl-val" id="cursorPulseSpeedVal">${(settings.cursorPulseSpeed/10).toFixed(1)}s</span>
       </div>
     </div>
   </div>
@@ -1025,24 +1025,24 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
     <div class="row">
       <span class="lbl">Scanlines</span>
       <div class="inp" style="display:flex;align-items:center;gap:8px;">
-        <label class="tog"><input type="checkbox" id="scanlinesEnabled"><span class="trk"></span></label>
+        <label class="tog"><input type="checkbox" id="scanlinesEnabled" ${settings.scanlinesEnabled !== false ? 'checked' : ''}><span class="trk"></span></label>
         <span class="tlbl" onclick="document.getElementById('scanlinesEnabled').click()">CRT scanlines</span>
       </div>
     </div>
     <div class="row">
       <span class="lbl">Opacity</span>
       <div class="inp sl-row">
-        <input type="range" id="scanlinesOpacity" min="0" max="20" step="1">
-        <span class="sl-val" id="scanlinesOpacityVal">6%</span>
+        <input type="range" id="scanlinesOpacity" min="0" max="20" step="1" value="${settings.scanlinesOpacity}">
+        <span class="sl-val" id="scanlinesOpacityVal">${settings.scanlinesOpacity}%</span>
       </div>
     </div>
     <div class="row">
       <span class="lbl">Scrollbar</span>
-      <div class="inp col-row"><input type="color" id="scrollbarColor"><input type="text" class="hex" id="scrollbarColorHex" maxlength="7"></div>
+      <div class="inp col-row"><input type="color" id="scrollbarColor" value="${settings.scrollbarColor}"><input type="text" class="hex" id="scrollbarColorHex" maxlength="7" value="${settings.scrollbarColor}"></div>
     </div>
     <div class="row">
       <span class="lbl">Scroll hover</span>
-      <div class="inp col-row"><input type="color" id="scrollbarHoverColor"><input type="text" class="hex" id="scrollbarHoverColorHex" maxlength="7"></div>
+      <div class="inp col-row"><input type="color" id="scrollbarHoverColor" value="${settings.scrollbarHoverColor}"><input type="text" class="hex" id="scrollbarHoverColorHex" maxlength="7" value="${settings.scrollbarHoverColor}"></div>
     </div>
   </div>
 </div>
