@@ -823,7 +823,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- BACKGROUND CONSOLE master section -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr">
+    <div class="msec-hdr-left" id="masterHdr" onclick="_tgl('master')">
       <i class="chev o" id="ch-master">&#9658;</i>
       <span class="msec-title">Background Console</span>
     </div>
@@ -836,7 +836,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 
 <!-- RYZE Background -->
 <div class="sec">
-  <div class="sec-hdr" data-sec="ryze">
+  <div class="sec-hdr" data-sec="ryze" onclick="_tgl('ryze')">
     <span class="sec-title">Custom Background Text</span>
     <i class="chev o" id="ch-ryze">&#9658;</i>
   </div>
@@ -903,7 +903,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 
 <!-- Glitch -->
 <div class="sec">
-  <div class="sec-hdr" data-sec="glitch">
+  <div class="sec-hdr" data-sec="glitch" onclick="_tgl('glitch')">
     <span class="sec-title">Glitch</span>
     <i class="chev o" id="ch-glitch">&#9658;</i>
   </div>
@@ -941,7 +941,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 
 <!-- Syntax Colors -->
 <div class="sec">
-  <div class="sec-hdr" data-sec="syntax">
+  <div class="sec-hdr" data-sec="syntax" onclick="_tgl('syntax')">
     <span class="sec-title">Syntax Glow</span>
     <i class="chev o" id="ch-syntax">&#9658;</i>
   </div>
@@ -992,7 +992,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 
 <!-- Cursor -->
 <div class="sec">
-  <div class="sec-hdr" data-sec="cursor">
+  <div class="sec-hdr" data-sec="cursor" onclick="_tgl('cursor')">
     <span class="sec-title">Cursor</span>
     <i class="chev" id="ch-cursor">&#9658;</i>
   </div>
@@ -1017,7 +1017,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 
 <!-- Effects -->
 <div class="sec">
-  <div class="sec-hdr" data-sec="effects">
+  <div class="sec-hdr" data-sec="effects" onclick="_tgl('effects')">
     <span class="sec-title">Effects</span>
     <i class="chev" id="ch-effects">&#9658;</i>
   </div>
@@ -1053,7 +1053,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- QUICK COMMANDS -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-qc">
+    <div class="msec-hdr-left" id="masterHdr-qc" onclick="_tgl('qc')">
       <i class="chev" id="ch-qc">&#9658;</i>
       <span class="msec-title">Quick Commands</span>
     </div>
@@ -1071,7 +1071,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- FOCUS MODE -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-focus">
+    <div class="msec-hdr-left" id="masterHdr-focus" onclick="_tgl('focus')">
       <i class="chev" id="ch-focus">&#9658;</i>
       <span class="msec-title">Focus Mode</span>
     </div>
@@ -1088,7 +1088,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- FONT CONTROLS -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-font">
+    <div class="msec-hdr-left" id="masterHdr-font" onclick="_tgl('font')">
       <i class="chev" id="ch-font">&#9658;</i>
       <span class="msec-title">Font Controls</span>
     </div>
@@ -1105,7 +1105,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- SCRATCH PAD -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-scratch">
+    <div class="msec-hdr-left" id="masterHdr-scratch" onclick="_tgl('scratch')">
       <i class="chev" id="ch-scratch">&#9658;</i>
       <span class="msec-title">Scratch Pad</span>
     </div>
@@ -1121,7 +1121,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- COLOR TOOLS -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-ct">
+    <div class="msec-hdr-left" id="masterHdr-ct" onclick="_tgl('ct')">
       <i class="chev" id="ch-ct">&#9658;</i>
       <span class="msec-title">Color Tools</span>
     </div>
@@ -1141,7 +1141,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- PATH UTILS -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-path">
+    <div class="msec-hdr-left" id="masterHdr-path" onclick="_tgl('path')">
       <i class="chev" id="ch-path">&#9658;</i>
       <span class="msec-title">Path Utils</span>
     </div>
@@ -1160,7 +1160,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- TODO SCANNER -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-todo">
+    <div class="msec-hdr-left" id="masterHdr-todo" onclick="_tgl('todo')">
       <i class="chev" id="ch-todo">&#9658;</i>
       <span class="msec-title">TODO Scanner</span>
     </div>
@@ -1176,7 +1176,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- GIT QUICK ACTIONS -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-git">
+    <div class="msec-hdr-left" id="masterHdr-git" onclick="_tgl('git')">
       <i class="chev" id="ch-git">&#9658;</i>
       <span class="msec-title">Git Quick Actions</span>
     </div>
@@ -1198,7 +1198,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- SNIPPET BANK -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-snip">
+    <div class="msec-hdr-left" id="masterHdr-snip" onclick="_tgl('snip')">
       <i class="chev" id="ch-snip">&#9658;</i>
       <span class="msec-title">Snippet Bank</span>
     </div>
@@ -1218,7 +1218,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- TEXT TRANSFORM -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-tt">
+    <div class="msec-hdr-left" id="masterHdr-tt" onclick="_tgl('tt')">
       <i class="chev" id="ch-tt">&#9658;</i>
       <span class="msec-title">Text Transform</span>
     </div>
@@ -1250,7 +1250,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- TIMESTAMP TOOLS -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-ts">
+    <div class="msec-hdr-left" id="masterHdr-ts" onclick="_tgl('ts')">
       <i class="chev" id="ch-ts">&#9658;</i>
       <span class="msec-title">Timestamp Tools</span>
     </div>
@@ -1275,7 +1275,7 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 <!-- REGEX TESTER -->
 <div class="msec">
   <div class="msec-hdr">
-    <div class="msec-hdr-left" id="masterHdr-rx">
+    <div class="msec-hdr-left" id="masterHdr-rx" onclick="_tgl('rx')">
       <i class="chev" id="ch-rx">&#9658;</i>
       <span class="msec-title">Regex Tester</span>
     </div>
@@ -1298,35 +1298,12 @@ input[type=color]::-webkit-color-swatch { border: none; border-radius: 0; }
 </div>
 
 <script>
-/* ─── COLLAPSE — runs first, isolated from everything else ─── */
-(function() {
-  try {
-    ['qc','focus','font','scratch','ct','path','todo','git','snip','tt','ts','rx'].forEach(function(key) {
-      var hdr = document.getElementById('masterHdr-' + key);
-      if (!hdr) return;
-      hdr.addEventListener('click', function() {
-        var body = document.getElementById('sec-' + key);
-        var chev = document.getElementById('ch-' + key);
-        if (body) body.classList.toggle('clp');
-        if (chev) chev.classList.toggle('o');
-      });
-    });
-    var m = document.getElementById('masterHdr');
-    if (m) m.addEventListener('click', function() {
-      document.getElementById('sec-master').classList.toggle('clp');
-      document.getElementById('ch-master').classList.toggle('o');
-    });
-    document.querySelectorAll('.sec-hdr').forEach(function(hdr) {
-      hdr.addEventListener('click', function() {
-        var sec = hdr.getAttribute('data-sec');
-        var body = document.getElementById('sec-' + sec);
-        var chev = document.getElementById('ch-' + sec);
-        if (body) body.classList.toggle('clp');
-        if (chev) chev.classList.toggle('o');
-      });
-    });
-  } catch(e) {}
-})();
+function _tgl(k) {
+  var b = document.getElementById('sec-' + k);
+  var c = document.getElementById('ch-' + k);
+  if (b) b.classList.toggle('clp');
+  if (c) c.classList.toggle('o');
+}
 
 var vscode = acquireVsCodeApi();
 var settings = ${s};
